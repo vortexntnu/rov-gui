@@ -4,17 +4,26 @@ project(rqt_vortex_control_mode)
 find_package(catkin REQUIRED COMPONENTS
   rospy
   rqt_gui_py
+  std_msgs
 )
 
 
 catkin_python_setup()
+#generate_messages()
 
 
-catkin_package()
+catkin_package(
+	CATKIN_DEPENDS rospy std_msgs
+)
 
 include_directories(
   ${catkin_INCLUDE_DIRS}
 )
+
+#add_executable(listener src/listener.py)
+#target_link_libraries(listener ${catkin_LIBRARIES})
+#add_dependencies( 
+
 
 install(PROGRAMS
   scripts/rqt_vortex_control_mode

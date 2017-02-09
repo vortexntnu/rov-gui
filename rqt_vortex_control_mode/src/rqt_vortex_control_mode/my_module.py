@@ -6,13 +6,13 @@ from qt_gui.plugin import Plugin
 from python_qt_binding import loadUi
 from python_qt_binding.QtWidgets import QWidget, QGraphicsView
 
-from std_msgs.msg import UInt8
-
+from std_msgs.msg import String
 
 
 class MyPlugin(Plugin):
 
     def __init__(self, context):
+        #PLUGIN CODE
         super(MyPlugin, self).__init__(context)
 
         # Give QObjects reasonable names
@@ -41,13 +41,6 @@ class MyPlugin(Plugin):
         # Give QObjects reasonable names
         self._widget.setObjectName('MyPluginUi')
 
-        #Init for widgets
-        self._widget.lineControlMode.setReadOnly(True)
-        #self._widget.lineControlMode.setlayoutDirection(RightToLeft)
-
-        control_mode = 0;
-        self._widget.lineControlMode.setText(str(control_mode))
-
         #Makes it possible to open more than one of each plugin
         if context.serial_number() > 1:
             self._widget.setWindowTitle(self._widget.windowTitle() + (' (%d)' % context.serial_number()))
@@ -55,9 +48,15 @@ class MyPlugin(Plugin):
         context.add_widget(self._widget)
 
 
+        #MY CODE
+        self._widget.lineControlMode.setReadOnly(True)
+        self._widget.lineControlMode.setText("init")
+
+        #Subscriber
+        self.sub = rospy.Subscriber("/uranus_dp/controller/mode", String, self.callback)
+
     def shutdown_plugin(self):
-        # TODO unregister all publishers here
-        pass
+        self.sub.unregister()
 
     def save_settings(self, plugin_settings, instance_settings):
         # TODO save intrinsic configuration, usually using:
@@ -69,11 +68,14 @@ class MyPlugin(Plugin):
         # v = instance_settings.value(k)
         pass
 
-    def listener():
-        rospy.Subscriber("controller/mode", UInt8, callback)
-        rospy.spin()
+    #def listener():
+    #    rospy.init_node('listener', anonymous = True) 
+    #    rospy.Subscriber("controller/mode", String, callback) #callback blir en thread
+    #    rospy.spin()
 
-    def callback(mode):
-        if control_mode != mode:
-            control_mode = mode
+    def callback(self, mode):
+        #if mode != control_mode:
+        #    control_mode = mode
+        self._widget.lineControlMode.setText(mode)
+        #rospy.loginfo(mode)
 
