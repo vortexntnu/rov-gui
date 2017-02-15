@@ -53,7 +53,7 @@ class MyPlugin(Plugin):
         self._widget.lineControlMode.setText("init")
 
         #Subscriber
-        self.sub = rospy.Subscriber("/uranus_dp/controller/mode", String, self.callback)
+        self.sub = rospy.Subscriber("/controller/mode", String, self.callback)
 
     def shutdown_plugin(self):
         self.sub.unregister()
@@ -74,8 +74,11 @@ class MyPlugin(Plugin):
     #    rospy.spin()
 
     def callback(self, mode):
+    	#rospy.loginfo(mode)
+    	#pub = rospy.Publisher('chatter', String, queue_size=10)
+    	#pub.publish(mode)
         #if mode != control_mode:
         #    control_mode = mode
-        self._widget.lineControlMode.setText(mode)
+        self._widget.lineControlMode.setText(str(mode))
         #rospy.loginfo(mode)
 
