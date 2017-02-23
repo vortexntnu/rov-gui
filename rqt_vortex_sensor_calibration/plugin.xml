@@ -1,0 +1,20 @@
+<library path="src">
+  <class name="Vortex sensor calibration" type="rqt_vortex_sensor_calibration.my_module.MyPlugin" base_class_type="rqt_gui_py::Plugin">
+    <description>
+      rqt plugin for vortex sensor calibration
+    </description>
+    <qtgui>
+      <!-- optional grouping...
+      <group>
+        <label>Group</label>
+      </group>
+      <group>
+        <label>Subgroup</label>
+      </group>
+      -->
+      <label>Vortex sensor calibration</label>
+      <icon type="theme">system-help</icon>
+      <statustip>Vortex sensor calibration</statustip>
+    </qtgui>
+  </class>
+</library>

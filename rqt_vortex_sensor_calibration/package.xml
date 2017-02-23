@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package>
+  <name>rqt_vortex_sensor_calibration</name>
+  <version>0.0.0</version>
+  <description>rqt plugin for vortex sensor calibration</description>
+
+  <maintainer email="ingrfjon@online.no">Ingrid Fjordheim Onstein</maintainer>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>rqt_gui_py</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>rqt_gui_py</run_depend>
+  <run_depend>std_msgs</run_depend>
+
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- You can specify that this package is a metapackage here: -->
+    <!-- <metapackage/> -->
+    <rqt_gui plugin="${prefix}/plugin.xml"/>
+    <!-- Other tools can request additional information be placed here -->
+
+  </export>
+</package>
