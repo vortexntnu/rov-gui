@@ -68,17 +68,13 @@ class MyPlugin(Plugin):
         # v = instance_settings.value(k)
         pass
 
-    #def listener():
-    #    rospy.init_node('listener', anonymous = True) 
-    #    rospy.Subscriber("controller/mode", String, callback) #callback blir en thread
-    #    rospy.spin()
 
     def callback(self, mode):
-    	#rospy.loginfo(mode)
+    	#rospy.loginfo(mode.data)
     	#pub = rospy.Publisher('chatter', String, queue_size=10)
     	#pub.publish(mode)
         #if mode != control_mode:
         #    control_mode = mode
-        self._widget.lineControlMode.setText(str(mode))
+        self._widget.lineControlMode.setText(mode.data)
         #rospy.loginfo(mode)
 
