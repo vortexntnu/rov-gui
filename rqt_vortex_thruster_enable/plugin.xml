@@ -1,0 +1,20 @@
+<library path="src">
+  <class name="Vortex thruster enable" type="rqt_vortex_thruster_enable.my_module.MyPlugin" base_class_type="rqt_gui_py::Plugin">
+    <description>
+      rqt plugin for vortex thruster enable
+    </description>
+    <qtgui>
+      <!-- optional grouping...
+      <group>
+        <label>Group</label>
+      </group>
+      <group>
+        <label>Subgroup</label>
+      </group>
+      -->
+      <label>Vortex thruster enable</label>
+      <icon type="theme">system-help</icon>
+      <statustip>Vortex thruster enable</statustip>
+    </qtgui>
+  </class>
+</library>
