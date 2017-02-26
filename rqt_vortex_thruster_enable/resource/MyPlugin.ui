@@ -65,7 +65,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Thruster enable</string>
+    <string>Thruster enabled</string>
    </property>
   </widget>
  </widget>

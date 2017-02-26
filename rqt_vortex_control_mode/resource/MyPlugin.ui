@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>378</width>
-    <height>70</height>
+    <width>406</width>
+    <height>72</height>
    </rect>
   </property>
   <property name="font">
@@ -21,7 +21,7 @@
   <widget class="QLabel" name="labelControlMode">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>10</x>
      <y>20</y>
      <width>131</width>
      <height>31</height>
@@ -39,7 +39,7 @@
   <widget class="QLineEdit" name="lineControlMode">
    <property name="geometry">
     <rect>
-     <x>160</x>
+     <x>180</x>
      <y>20</y>
      <width>191</width>
      <height>31</height>

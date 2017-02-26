@@ -1,3 +1,5 @@
+#RQT VORTEX DEPTH PLUGIN
+
 import os
 import rospkg
 import rospy
@@ -51,6 +53,8 @@ class MyPlugin(Plugin):
 
         #MY CODE
         self._widget.verticalSliderDepth.setValue(10)
+        self._widget.lineEditDepth.setReadOnly(True)
+        self._widget.lineEditDepth.setText('init')
 
         #Subscriber
         self.sub = rospy.Subscriber("/state_estimate", Odometry, self.callback)
@@ -71,12 +75,4 @@ class MyPlugin(Plugin):
 
     def callback(self, depth):
     	self._widget.verticalSliderDepth.setValue(depth.pose.pose.position.z)
-    	#rospy.loginfo(depth.Pose.Pose.Position.Set)
-    	#pub = rospy.Publisher('chatter', Odometry, queue_size=10)
-    	#pub.publish(depth.pose.pose.position)
-    	#pub.publish(depth.header.seq)
-        #if mode != control_mode:
-        #    control_mode = mode
-        #self._widget.lineControlMode.setText(mode.data)
-        #print(depth.pose.pose.position.z)
-
+    	self._widget.lineEditDepth.setText(str(depth.pose.pose.position.z))

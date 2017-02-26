@@ -7,8 +7,7 @@ from python_qt_binding import loadUi
 from python_qt_binding.QtWidgets import QWidget, QGraphicsView
 from python_qt_binding.QtGui import QColor
 
-from std_msgs.msg import String
-from nav_msgs.msg import Odometry
+#from ThrusterEnable.srv import *
 
 
 class MyPlugin(Plugin):
@@ -61,11 +60,13 @@ class MyPlugin(Plugin):
             }""")
 
 
-        #Subscriber
-        #self.sub = rospy.Subscriber("/state_estimate", Odometry, self.callback)
+        #Service('name you call service', service type, function to handle service)
+        #s = rospy.Service('thuster_switch_service', ThrusterEnable, handle_thuster_switch)
 
+    #Toggle color when pushed
     def _handle_kill_clicked(self):
-        if self._widget.btnKill.isChecked():            
+        if self._widget.btnKill.isChecked(): 
+            self._widget.btnKill.setText('Thruster disabled')           
             self._widget.btnKill.setStyleSheet("""QPushButton {
                 background-color: red; 
                 border-radius: 8px;
@@ -73,16 +74,26 @@ class MyPlugin(Plugin):
                 }""")
 
         else:
+            self._widget.btnKill.setText('Thruster enabled')
             self._widget.btnKill.setStyleSheet("""QPushButton {
                 background-color: green; 
                 border-radius: 8px;
                 color: black;
                 }""")
 
+        #Update service
+        #self.handle_thuster_switch()
+
+    #Service function
+    #def handle_thuster_switch(self, thruster)
+    #    if thruster.thruster_switch is True:
+    #        thruster.thruster_switch = False
+    #    elif thruster.thruster_switch is False:
+    #        thruster.thruster_switch = True
 
 
     def shutdown_plugin(self):
-        #self.sub.unregister()
+        #self.s.unregister()
         pass
 
     def save_settings(self, plugin_settings, instance_settings):
@@ -94,16 +105,3 @@ class MyPlugin(Plugin):
         # TODO restore intrinsic configuration, usually using:
         # v = instance_settings.value(k)
         pass
-
-
-    #def callback(self, depth):
-    	#self._widget.verticalSliderDepth.setValue(depth.pose.pose.position.z)
-    	#rospy.loginfo(depth.Pose.Pose.Position.Set)
-    	#pub = rospy.Publisher('chatter', Odometry, queue_size=10)
-    	#pub.publish(depth.pose.pose.position)
-    	#pub.publish(depth.header.seq)
-        #if mode != control_mode:
-        #    control_mode = mode
-        #self._widget.lineControlMode.setText(mode.data)
-        #print(depth.pose.pose.position.z)
-

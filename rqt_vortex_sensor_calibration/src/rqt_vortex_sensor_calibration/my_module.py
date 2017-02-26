@@ -1,3 +1,5 @@
+#RQT VORTEX SENSOR CALIBRATION PLUGIN
+
 import os
 import rospkg
 import rospy
@@ -5,6 +7,7 @@ import rospy
 from qt_gui.plugin import Plugin
 from python_qt_binding import loadUi
 from python_qt_binding.QtWidgets import QWidget, QGraphicsView
+from python_qt_binding.QtGui import QColor
 
 from std_msgs.msg import String
 from nav_msgs.msg import Odometry
@@ -49,13 +52,56 @@ class MyPlugin(Plugin):
         context.add_widget(self._widget)
 
 
-        #MY CODE
+        #INIT
         self._widget.lineAccelerometer.setReadOnly(True)
         self._widget.lineGyroscope.setReadOnly(True)
         self._widget.lineMagnetometer.setReadOnly(True)
 
+        #self._widget.lineAccelerometer.setText(str(0))
+        self.line_color(3, self._widget.lineAccelerometer)
+        self.line_color(5, self._widget.lineGyroscope)
+        self.line_color(2, self._widget.lineMagnetometer)
+
+
         #Subscriber
         #self.sub = rospy.Subscriber("/sensors/diagnostics", DiagnosticStatus, self.callback)
+
+    def line_color(self, status, line):
+        if status == 0:
+            line.setText(str(status))
+            line.setStyleSheet("""QLineEdit {
+            background-color: red; 
+            color: black;
+            }""")
+
+        elif status == 1:
+            line.setText(str(status))
+            line.setStyleSheet("""QLineEdit {
+            background-color: red; 
+            color: black;
+            }""")
+
+        elif status == 2:
+            line.setText(str(status))
+            line.setStyleSheet("""QLineEdit {
+            background-color: orange; 
+            color: black;
+            }""")
+
+        elif status == 3:
+            line.setText(str(status))
+            line.setStyleSheet("""QLineEdit {
+            background-color: green; 
+            color: black;
+            }""")
+
+        else :
+            line.setText('---')
+            line.setStyleSheet("""QLineEdit {
+            background-color: red; 
+            color: black;
+            }""")
+
 
     def shutdown_plugin(self):
         #self.sub.unregister()
