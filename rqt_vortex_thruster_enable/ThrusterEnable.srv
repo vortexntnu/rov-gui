@@ -1,7 +1,0 @@
-# Thruster on/off
-# bool True - Thruster off
-# bool False - Thruster on
-
-bool thruster_switch
----
-bool data

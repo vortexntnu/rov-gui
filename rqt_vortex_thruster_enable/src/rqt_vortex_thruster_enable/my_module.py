@@ -7,7 +7,7 @@ from python_qt_binding import loadUi
 from python_qt_binding.QtWidgets import QWidget, QGraphicsView
 from python_qt_binding.QtGui import QColor
 
-#from ThrusterEnable.srv import *
+from motor_interface.srv import *
 
 
 class MyPlugin(Plugin):
@@ -59,9 +59,7 @@ class MyPlugin(Plugin):
             color: black;
             }""")
 
-
-        #Service('name you call service', service type, function to handle service)
-        #s = rospy.Service('thuster_switch_service', ThrusterEnable, handle_thuster_switch)
+        self.toggle_thruster = rospy.ServiceProxy('thruster_disable', ThrusterToggle)
 
     #Toggle color when pushed
     def _handle_kill_clicked(self):
@@ -72,6 +70,7 @@ class MyPlugin(Plugin):
                 border-radius: 8px;
                 color: black;
                 }""")
+            self.toggle_thruster(True)
 
         else:
             self._widget.btnKill.setText('Thruster enabled')
@@ -80,17 +79,8 @@ class MyPlugin(Plugin):
                 border-radius: 8px;
                 color: black;
                 }""")
-
-        #Update service
-        #self.handle_thuster_switch()
-
-    #Service function
-    #def handle_thuster_switch(self, thruster)
-    #    if thruster.thruster_switch is True:
-    #        thruster.thruster_switch = False
-    #    elif thruster.thruster_switch is False:
-    #        thruster.thruster_switch = True
-
+            self.toggle_thruster(False)
+       
 
     def shutdown_plugin(self):
         #self.s.unregister()

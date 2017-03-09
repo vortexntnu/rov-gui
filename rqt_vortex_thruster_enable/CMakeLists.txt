@@ -8,21 +8,7 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
 )
 
-
 catkin_python_setup()
-
-#add_service_files(ThrusterEnable)
-#generate_messages()
-
-
-  # Declare the service files to be built
-#add_service_files(FILES
-#    MyService.srv
-#  )
-
-  # Actually generate the language-specific message and service files
-#generate_messages(DEPENDENCIES std_msgs)
-
 
 
 catkin_package(
