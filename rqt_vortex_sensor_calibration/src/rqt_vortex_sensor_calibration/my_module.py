@@ -58,9 +58,9 @@ class MyPlugin(Plugin):
         self._widget.lineMagnetometer.setReadOnly(True)
 
         #self._widget.lineAccelerometer.setText(str(0))
-        self.line_color(3, self._widget.lineAccelerometer)
-        self.line_color(5, self._widget.lineGyroscope)
-        self.line_color(2, self._widget.lineMagnetometer)
+        self.line_color(0, self._widget.lineAccelerometer)
+        self.line_color(2, self._widget.lineGyroscope)
+        self.line_color(3, self._widget.lineMagnetometer)
 
 
         #Subscriber

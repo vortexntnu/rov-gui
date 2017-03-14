@@ -59,7 +59,7 @@ class MyPlugin(Plugin):
             color: black;
             }""")
 
-        self.toggle_thruster = rospy.ServiceProxy('thruster_disable', ThrusterToggle)
+        self.toggle_thruster = rospy.ServiceProxy('thruster_disable', ThrusterDisable)
 
     #Toggle color when pushed
     def _handle_kill_clicked(self):
