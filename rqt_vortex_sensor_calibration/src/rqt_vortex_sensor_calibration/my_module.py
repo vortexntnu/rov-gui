@@ -9,8 +9,7 @@ from python_qt_binding import loadUi
 from python_qt_binding.QtWidgets import QWidget, QGraphicsView
 from python_qt_binding.QtGui import QColor
 
-from std_msgs.msg import String
-from nav_msgs.msg import Odometry
+from diagnostic_msgs.msg import DiagnosticStatus
 
 
 class MyPlugin(Plugin):
@@ -58,15 +57,24 @@ class MyPlugin(Plugin):
         self._widget.lineMagnetometer.setReadOnly(True)
 
         #self._widget.lineAccelerometer.setText(str(0))
-        self.line_color(0, self._widget.lineAccelerometer)
-        self.line_color(2, self._widget.lineGyroscope)
-        self.line_color(3, self._widget.lineMagnetometer)
-
+        self.update_line_color(0, self._widget.lineAccelerometer)
+        self.update_line_color(0, self._widget.lineGyroscope)
+        self.update_line_color(0, self._widget.lineMagnetometer)
 
         #Subscriber
-        #self.sub = rospy.Subscriber("/sensors/diagnostics", DiagnosticStatus, self.callback)
+        self.sub = rospy.Subscriber("/sensors/imu/diagnostics", DiagnosticStatus, self.callback)
 
-    def line_color(self, status, line):
+    def callback(self, diagnostics):
+        sys = diagnostics.values[0]
+        gyro = diagnostics.values[1]
+        accel = diagnostics.values[2]
+        mag = diagnostics.values[3]
+
+        self.update_line_color(int(accel.value), self._widget.lineAccelerometer)
+        self.update_line_color(int(gyro.value), self._widget.lineGyroscope)
+        self.update_line_color(int(mag.value), self._widget.lineMagnetometer)
+
+    def update_line_color(self, status, line):
         if status == 0:
             line.setText(str(status))
             line.setStyleSheet("""QLineEdit {
@@ -102,10 +110,9 @@ class MyPlugin(Plugin):
             color: black;
             }""")
 
-
     def shutdown_plugin(self):
-        #self.sub.unregister()
-        pass
+        self.sub.unregister()
+
     def save_settings(self, plugin_settings, instance_settings):
         # TODO save intrinsic configuration, usually using:
         # instance_settings.set_value(k, v)
@@ -115,9 +122,4 @@ class MyPlugin(Plugin):
         # TODO restore intrinsic configuration, usually using:
         # v = instance_settings.value(k)
         pass
-
-
- #   def callback(self, sensor):
- #    	
-
 
