@@ -70,11 +70,5 @@ class MyPlugin(Plugin):
 
 
     def callback(self, mode):
-    	#rospy.loginfo(mode.data)
-    	#pub = rospy.Publisher('chatter', String, queue_size=10)
-    	#pub.publish(mode)
-        #if mode != control_mode:
-        #    control_mode = mode
         self._widget.lineControlMode.setText(mode.data)
-        #rospy.loginfo(mode)
 
