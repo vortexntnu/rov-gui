@@ -59,28 +59,43 @@ class MyPlugin(Plugin):
             color: black;
             }""")
 
-        self.toggle_thruster = rospy.ServiceProxy('thruster_disable', ThrusterDisable)
+        self.toggle_thruster = rospy.ServiceProxy('/motor_interface/thrusters_enable', ThrustersEnable)
 
     #Toggle color when pushed
     def _handle_kill_clicked(self):
-        if self._widget.btnKill.isChecked(): 
-            self._widget.btnKill.setText('Thruster disabled')           
-            self._widget.btnKill.setStyleSheet("""QPushButton {
-                background-color: red; 
-                border-radius: 8px;
-                color: black;
-                }""")
-            self.toggle_thruster(True)
+        try:
+            if self._widget.btnKill.isChecked(): 
+                self.toggle_thruster(True)
 
-        else:
-            self._widget.btnKill.setText('Thruster enabled')
+                self._widget.btnKill.setText('Thrusters disabled')           
+                self._widget.btnKill.setStyleSheet("""QPushButton {
+                    background-color: red; 
+                    border-radius: 8px;
+                    color: black;
+                    }""")
+
+            else:
+                self.toggle_thruster(False)
+                self._widget.btnKill.setText('Thrusters enabled')
+                self._widget.btnKill.setStyleSheet("""QPushButton {
+                    background-color: green; 
+                    border-radius: 8px;
+                    color: black;
+                    }""")
+
+        except rospy.ServiceException, e:
+            print "Service call failed: %s"%e
+           
+            #Sets the button green ---- SHOULD IT THOUGH?????
+            self._widget.btnKill.setText('Thrusters enabled')
             self._widget.btnKill.setStyleSheet("""QPushButton {
-                background-color: green; 
-                border-radius: 8px;
-                color: black;
-                }""")
-            self.toggle_thruster(False)
-       
+                    background-color: green; 
+                    border-radius: 8px;
+                    color: black;
+                    }""")
+
+            #Unchecks to avoid trouble when restart
+            self._widget.btnKill.setChecked(False)
 
     def shutdown_plugin(self):
         #self.s.unregister()
