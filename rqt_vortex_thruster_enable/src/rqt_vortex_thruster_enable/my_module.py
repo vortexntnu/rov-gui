@@ -7,7 +7,7 @@ from python_qt_binding import loadUi
 from python_qt_binding.QtWidgets import QWidget, QGraphicsView
 from python_qt_binding.QtGui import QColor
 
-from motor_interface.srv import *
+from thruster_interface.srv import *
 
 
 class MyPlugin(Plugin):
@@ -59,13 +59,13 @@ class MyPlugin(Plugin):
             color: black;
             }""")
 
-        self.toggle_thruster = rospy.ServiceProxy('/motor_interface/thrusters_enable', ThrustersEnable)
+        self.toggle_thruster = rospy.ServiceProxy('/thruster_interface/thrusters_enable', ThrustersEnable)
 
     #Toggle color when pushed
     def _handle_kill_clicked(self):
         try:
             if self._widget.btnKill.isChecked(): 
-                self.toggle_thruster(True)
+                self.toggle_thruster(False)
 
                 self._widget.btnKill.setText('Thrusters disabled')           
                 self._widget.btnKill.setStyleSheet("""QPushButton {
@@ -75,7 +75,7 @@ class MyPlugin(Plugin):
                     }""")
 
             else:
-                self.toggle_thruster(False)
+                self.toggle_thruster(True)
                 self._widget.btnKill.setText('Thrusters enabled')
                 self._widget.btnKill.setStyleSheet("""QPushButton {
                     background-color: green; 
