@@ -6,11 +6,12 @@ from qt_gui.plugin import Plugin
 from python_qt_binding import loadUi
 from python_qt_binding.QtWidgets import QWidget, QGraphicsView
 
-from std_msgs.msg import String
+from vortex_msgs.msg import LightInput
 
+ON = 100
+OFF = 0
 
 class MyPlugin(Plugin):
-
     def __init__(self, context):
         #PLUGIN CODE
         super(MyPlugin, self).__init__(context)
@@ -47,39 +48,108 @@ class MyPlugin(Plugin):
         # Add widget to the user interface
         context.add_widget(self._widget)
 
+        self._widget.btn_ramen.setCheckable(True)
+        self._widget.btn_bluetooth.setCheckable(True)
 
-        #MY CODE
-        #self._widget.lineBluetoothMessage.setReadOnly(True)
-        #self._widget.lineBluetoothMessage.setText("init")
+        self._widget.btn_ramen.setStyleSheet("""QPushButton {
+            background-color: red; 
+            border-radius: 8px;
+            color: black;
+            }""")
+        
+        self._widget.btn_bluetooth.setStyleSheet("""QPushButton {
+            background-color: red; 
+            border-radius: 8px;
+            color: black;
+            }""")        
 
-        #Subscriber
-        #self.sub = rospy.Subscriber("/controller/mode", String, self.callback)
+        self._widget.btn_ramen.toggled.connect(self.handle_ramen_clicked)
+        self._widget.btn_bluetooth.toggled.connect(self.handle_bluetooth_clicked)
+        self._widget.horizontalSlider_frontLight.sliderMoved.connect(self.handle_slider_moved)
+
+        self.pub = rospy.Publisher('light_node', LightInput, queue_size=10)
+
+
+    def handle_ramen_clicked(self):
+        try:
+            if self._widget.btn_ramen.isChecked(): 
+                self.pub.publish('raman', ON)
+           
+                self._widget.btn_ramen.setStyleSheet("""QPushButton {
+                    background-color: green; 
+                    border-radius: 8px;
+                    color: black;
+                    }""")
+
+                print 'raman on'
+
+            else:
+                self.pub.publish('raman', OFF)
+                self._widget.btn_ramen.setStyleSheet("""QPushButton {
+                    background-color: red; 
+                    border-radius: 8px;
+                    color: black;
+                    }""")
+
+                print 'raman off'
+
+        except rospy.ServiceException, e:
+            print "Publish call failed: %s"%e
+           
+            #Sets the button green ---- SHOULD IT THOUGH?????
+            self._widget.btn_ramen.setStyleSheet("""QPushButton {
+                    background-color: red; 
+                    border-radius: 8px;
+                    color: black;
+                    }""")
+
+            #Unchecks to avoid trouble when restart
+            self._widget.btn_ramen.setChecked(False)
+
+    def handle_bluetooth_clicked(self):
+        try:
+            if self._widget.btn_bluetooth.isChecked(): 
+                self.pub.publish('bluetooth', ON)
+           
+                self._widget.btn_bluetooth.setStyleSheet("""QPushButton {
+                    background-color: green; 
+                    border-radius: 8px;
+                    color: black;
+                    }""")
+
+                print 'bluetooth on'
+
+            else:
+                self.pub.publish('bluetooth', OFF)
+                self._widget.btn_bluetooth.setStyleSheet("""QPushButton {
+                    background-color: red; 
+                    border-radius: 8px;
+                    color: black;
+                    }""")
+
+                print 'bluetooth off'
+
+        except rospy.ServiceException, e:
+            print "Publish call failed: %s"%e
+           
+            #Sets the button green ---- SHOULD IT THOUGH?????
+            self._widget.btn_bluetooth.setStyleSheet("""QPushButton {
+                    background-color: red; 
+                    border-radius: 8px;
+                    color: black;
+                    }""")
+
+            #Unchecks to avoid trouble when restart
+            self._widget.btn_bluetooth.setChecked(False)
+
+    def handle_slider_moved(self):
+        try:
+            intensity = self._widget.horizontalSlider_frontLight.value()
+            self.pub.publish('front', intensity)
+            print 'front: ' + str(intensity)
+
+        except rospy.ServiceException, e:
+            print "Publish call failed: %s"%e            
 
     def shutdown_plugin(self):
-        #self.sub.unregister()
         pass
-
-    def save_settings(self, plugin_settings, instance_settings):
-        # TODO save intrinsic configuration, usually using:
-        # instance_settings.set_value(k, v)
-        pass
-
-    def restore_settings(self, plugin_settings, instance_settings):
-        # TODO restore intrinsic configuration, usually using:
-        # v = instance_settings.value(k)
-        pass
-
-    #def listener():
-    #    rospy.init_node('listener', anonymous = True) 
-    #    rospy.Subscriber("controller/mode", String, callback) #callback blir en thread
-    #    rospy.spin()
-
-    #def callback(self, mode):
-    	#rospy.loginfo(mode)
-    	#pub = rospy.Publisher('chatter', String, queue_size=10)
-    	#pub.publish(mode)
-        #if mode != control_mode:
-        #    control_mode = mode
-        #self._widget.lineControlMode.setText(str(mode))
-        #rospy.loginfo(mode)
-

@@ -4,7 +4,7 @@ project(rqt_vortex_light)
 find_package(catkin REQUIRED COMPONENTS
   rospy
   rqt_gui_py
-  std_msgs
+  vortex_msgs
 )
 
 
@@ -12,7 +12,7 @@ catkin_python_setup()
 
 
 catkin_package(
-	CATKIN_DEPENDS rospy std_msgs
+	CATKIN_DEPENDS rospy vortex_msgs
 )
 
 include_directories(
