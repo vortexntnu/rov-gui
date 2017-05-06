@@ -1,0 +1,20 @@
+<library path="src">
+  <class name="Vortex camera slection" type="rqt_vortex_camera_selection.my_module.MyPlugin" base_class_type="rqt_gui_py::Plugin">
+    <description>
+      rqt plugin for vortex camera selection
+    </description>
+    <qtgui>
+      <!-- optional grouping...
+      <group>
+        <label>Group</label>
+      </group>
+      <group>
+        <label>Subgroup</label>
+      </group>
+      -->
+      <label>Vortex camera slection</label>
+      <icon type="theme">system-help</icon>
+      <statustip>Vortex camera selection</statustip>
+    </qtgui>
+  </class>
+</library>
