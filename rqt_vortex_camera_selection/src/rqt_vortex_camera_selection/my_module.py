@@ -6,7 +6,7 @@ from qt_gui.plugin import Plugin
 from python_qt_binding import loadUi
 from python_qt_binding.QtWidgets import QWidget, QGraphicsView
 
-#from vortex_msgs.msg import CameraFeedSelection
+from vortex_msgs.msg import CameraFeedSelection
 
 
 class MyPlugin(Plugin):
@@ -47,26 +47,37 @@ class MyPlugin(Plugin):
         # Add widget to the user interface
         context.add_widget(self._widget)
 
+        #Create publisher
+        self.pub = rospy.Publisher('camera_feed_selection', CameraFeedSelection, queue_size=10)
 
-        #self.pub = rospy.Publisher('camera_feed_selection', CameraFeedSelection, queue_size=10)
+        #Add event for index changed
+        self._widget.comboBox_feed0.currentIndexChanged.connect(self.camera_selection0)
+        self._widget.comboBox_feed1.currentIndexChanged.connect(self.camera_selection1)
+        self._widget.comboBox_feed2.currentIndexChanged.connect(self.camera_selection2)
 
-        self._widget.comboBox_feed0.currentIndexChanged.connect(self.camera_selection)
-        self._widget.comboBox_feed1.currentIndexChanged.connect(self.camera_selection)
-        self._widget.comboBox_feed2.currentIndexChanged.connect(self.camera_selection)
-
-    def camera_selection(self):
-        #Get cam on feed
+    def camera_selection0(self):
+        #Get cam on feed0
+        feed = 0
         feed0_cam = self._widget.comboBox_feed0.currentIndex()
+        
+        #Publich message
+        self.pub.publish(feed, feed0_cam)
+
+    def camera_selection1(self):
+        #Get cam on feed1
+        feed = 1
         feed1_cam = self._widget.comboBox_feed1.currentIndex()
+
+        #Publich message
+        self.pub.publish(feed, feed1_cam)
+
+    def camera_selection2(self):
+        #Get cam on feed2
+        feed = 2
         feed2_cam = self._widget.comboBox_feed2.currentIndex()
 
-        print '------------------------'
-        print 'Feed0: ' + str(feed0_cam)
-        print 'Feed1: ' + str(feed1_cam)
-        print 'Feed2: ' + str(feed2_cam)
         #Publich message
-        #pub.publish(hello_str)
+        self.pub.publish(feed, feed2_cam)
 
     def shutdown_plugin(self):
-        #self.stop_publishing('camera_feed_selection')
         pass
