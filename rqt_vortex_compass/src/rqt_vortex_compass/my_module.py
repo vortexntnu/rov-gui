@@ -6,7 +6,7 @@ from qt_gui.plugin import Plugin
 from python_qt_binding import loadUi
 from python_qt_binding.QtWidgets import QWidget, QGraphicsView
 
-from nav_msgs.msg import Odometry
+from sensor_msgs.msg import Imu
 
 
 class MyPlugin(Plugin):
@@ -47,20 +47,38 @@ class MyPlugin(Plugin):
         # Add widget to the user interface
         context.add_widget(self._widget)
 
-        self.sub = rospy.Subscriber("/state_estimate", Odometry, self.callback)
+        self.sub = rospy.Subscriber("/sensors/imu/euler", Imu, self.callback)
 
-    def quaternion_to_euler(self, quaternion):
-        quaternion = (pose.orientation.x, pose.orientation.y, pose.orientation.z, pose.orientation.w)
-        euler = tf.transformations.euler_from_quaternion(quaternion)
-        roll = euler[0]
-        pitch = euler[1]
-        yaw = euler[2]
+    def callback(self, _orientation):
+        try:
+            orientation = int(_orientation)
 
-    def callback(self, orientation):
+            forward = 0
+            right = 270
+            left = 90
+            backward = 180
+            cake = 30
+            limit_left = backward - cake
+            limit_right = backward + cake
+            value = 0
+            slope = 50.0/150.0
 
+            if (orientation > limit_left) and (orientation < limit_right):
+                if orientation < backward:
+                    value = 1
+                else:
+                    value = 99
+            elif orientation < backward:
+                value = 50 - slope*orientation
+            elif orientation > backward:
+                value = 100 - slope*(orientation-210.0)
 
-        #self._widget.dial.setValue(depth.pose.pose.position.z)
-        pass
+            print value
+
+            self._widget.dial.setValue(orientation.vector.z)
+            self._widget.lineValue.setText(str(value))
+        except Exception as e:
+            raise
 
     def shutdown_plugin(self):
         self.sub.unregister()

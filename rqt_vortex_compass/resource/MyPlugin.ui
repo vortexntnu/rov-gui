@@ -1,32 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>compass</class>
+ <widget class="QWidget" name="compass">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>157</width>
+    <height>176</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
-  </property>
-  <property name="Palette" stdset="0">
-   <palette>
-    <active/>
-    <inactive/>
-    <disabled/>
-   </palette>
+   <string>Vortex compass</string>
   </property>
   <widget class="QDial" name="dial">
    <property name="geometry">
     <rect>
-     <x>150</x>
-     <y>80</y>
-     <width>50</width>
-     <height>64</height>
+     <x>0</x>
+     <y>0</y>
+     <width>151</width>
+     <height>131</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineValue">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>140</y>
+     <width>113</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>
