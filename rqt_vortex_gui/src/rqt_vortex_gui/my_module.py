@@ -8,7 +8,14 @@ from python_qt_binding.QtWidgets import QWidget, QGraphicsView
 from python_qt_binding.QtGui import QColor
 
 from std_msgs.msg import String
+from nav_msgs.msg import Odometry
+from vortex_msgs.msg import CameraFeedSelection, LightInput, ContainerID
+from diagnostic_msgs.msg import DiagnosticStatus
 
+from thruster_interface.srv import *
+
+ON = 100
+OFF = 0
 
 class MyPlugin(Plugin):
 
@@ -48,43 +55,277 @@ class MyPlugin(Plugin):
         # Add widget to the user interface
         context.add_widget(self._widget)
 
+#-----------------------------------------------------------
+
+        #Vortex logo
+        self._widget.label_6.setStyleSheet("""QLabel {
+            image: url(Documents/Vortex/logo_lang_sort.png);
+            }""")
+
+        #Control mode
+        self._widget.lineControlMode.setReadOnly(True)
+        self._widget.lineControlMode.setText("init")
+        self.subControlMode = rospy.Subscriber("/controller/mode", String, self.callback_controlMode)
+
+
+        #Depth
+        self._widget.verticalSliderDepth.setValue(10)
+        self._widget.lineEditDepth.setReadOnly(True)
+        self._widget.lineEditDepth.setText('init')
+        self.subDepth = rospy.Subscriber("/state_estimate", Odometry, self.callback_depth)
+
+
+        #Lights
+        self._widget.btn_ramen.setCheckable(True)
+        self._widget.btn_bluetooth.setCheckable(True)
+        self._widget.btn_ramen.setStyleSheet("""QPushButton {
+            background-color: red; 
+            border-radius: 8px;
+            color: black;
+            }""")        
+        self._widget.btn_bluetooth.setStyleSheet("""QPushButton {
+            background-color: red; 
+            border-radius: 8px;
+            color: black;
+            }""")        
+        self._widget.btn_ramen.toggled.connect(self.handle_ramen_clicked)
+        self._widget.btn_bluetooth.toggled.connect(self.handle_bluetooth_clicked)
+        self._widget.horizontalSlider_frontLight.sliderMoved.connect(self.handle_slider_moved)
+        self.pubLights = rospy.Publisher('light_node', LightInput, queue_size=10)
+
+
+        #Sensor calibration
+        self._widget.lineAccelerometer.setReadOnly(True)
+        self._widget.lineGyroscope.setReadOnly(True)
+        self._widget.lineMagnetometer.setReadOnly(True)
+        self.update_line_color(0, self._widget.lineAccelerometer)
+        self.update_line_color(0, self._widget.lineGyroscope)
+        self.update_line_color(0, self._widget.lineMagnetometer)
+        self.subSensor = rospy.Subscriber("/sensors/imu/diagnostics", DiagnosticStatus, self.callback_sensor)
+
+
+        #Thruster enable
+        self._widget.btnKill.toggled.connect(self._handle_kill_clicked)
+        self._widget.btnKill.setCheckable(True)
         self._widget.btnKill.setStyleSheet("""QPushButton {
             background-color: rgb(0,165,0); 
             border-radius: 8px;
             color: black;
             }""")
+        self.toggle_thruster = rospy.ServiceProxy('/thruster_interface/thrusters_enable', ThrustersEnable)
 
-        self._widget.label_6.setStyleSheet("""QLabel {
-            image: url(Documents/Vortex/logo_lang_sort.png);
-            }""")
 
+        #Compass
         self._widget.dial.setValue(50)
 
+
+        #Camera Selection
+        self._widget.comboBox_feed0.currentIndexChanged.connect(self.camera_selection0)
+        self._widget.comboBox_feed1.currentIndexChanged.connect(self.camera_selection1)
+        self._widget.comboBox_feed2.currentIndexChanged.connect(self.camera_selection2)
+        self.pubCamera = rospy.Publisher('camera_feed_selection', CameraFeedSelection, queue_size=10)
+
+
+        #Bluetooth
+        self._widget.lineBluetoothMessage.setReadOnly(True)
+        self._widget.lineBluetoothMessage.setText("init")
+        self.subBluetooth = rospy.Subscriber('/bluetooth/container_id', DiagnosticStatus, self.callback_bluetooth)
+
+
+    def callback_controlMode(self, mode):
+        self._widget.lineControlMode.setText(mode.data)
+
+    def callback_depth(self, depth):
+        self._widget.verticalSliderDepth.setValue(depth.pose.pose.position.z)
+        self._widget.lineEditDepth.setText(str(depth.pose.pose.position.z))
+
+    def handle_ramen_clicked(self):
+        try:
+            if self._widget.btn_ramen.isChecked(): 
+                self.pubLights.publish('raman', ON)
+           
+                self._widget.btn_ramen.setStyleSheet("""QPushButton {
+                    background-color: rgb(0,165,0); 
+                    border-radius: 8px;
+                    color: black;
+                    }""")
+                print 'raman on'
+
+            else:
+                self.pubLights.publish('raman', OFF)
+                self._widget.btn_ramen.setStyleSheet("""QPushButton {
+                    background-color: red; 
+                    border-radius: 8px;
+                    color: black;
+                    }""")
+                print 'raman off'
+
+        except rospy.ServiceException, e:
+            print "Publish call failed: %s"%e
+           
+            #Sets the button green ---- SHOULD IT THOUGH?????
+            self._widget.btn_ramen.setStyleSheet("""QPushButton {
+                    background-color: red; 
+                    border-radius: 8px;
+                    color: black;
+                    }""")
+
+            #Unchecks to avoid trouble when restart
+            self._widget.btn_ramen.setChecked(False)
+
+    def handle_bluetooth_clicked(self):
+        try:
+            if self._widget.btn_bluetooth.isChecked(): 
+                self.pubLights.publish('bluetooth', ON)
+           
+                self._widget.btn_bluetooth.setStyleSheet("""QPushButton {
+                    background-color: rgb(0,165,0); 
+                    border-radius: 8px;
+                    color: black;
+                    }""")
+                print 'bluetooth on'
+
+            else:
+                self.pubLights.publish('bluetooth', OFF)
+                self._widget.btn_bluetooth.setStyleSheet("""QPushButton {
+                    background-color: red; 
+                    border-radius: 8px;
+                    color: black;
+                    }""")
+                print 'bluetooth off'
+
+        except rospy.ServiceException, e:
+            print "Publish call failed: %s"%e
+           
+            #Sets the button green ---- SHOULD IT THOUGH?????
+            self._widget.btn_bluetooth.setStyleSheet("""QPushButton {
+                    background-color: red; 
+                    border-radius: 8px;
+                    color: black;
+                    }""")
+
+            #Unchecks to avoid trouble when restart
+            self._widget.btn_bluetooth.setChecked(False)
+
+    def handle_slider_moved(self):
+        try:
+            intensity = self._widget.horizontalSlider_frontLight.value()
+            self.pubLights.publish('front', intensity)
+            print 'front: ' + str(intensity)
+
+        except rospy.ServiceException, e:
+            print "Publish call failed: %s"%e     
+
+    def callback_sensor(self, diagnostics):
+        sys = diagnostics.values[0]
+        gyro = diagnostics.values[1]
+        accel = diagnostics.values[2]
+        mag = diagnostics.values[3]
+
+        self.update_line_color(int(accel.value), self._widget.lineAccelerometer)
+        self.update_line_color(int(gyro.value), self._widget.lineGyroscope)
+        self.update_line_color(int(mag.value), self._widget.lineMagnetometer)
+
+    def update_line_color(self, status, line):
+        if status == 0:
+            line.setText(str(status))
+            line.setStyleSheet("""QLineEdit {
+            background-color: red; 
+            color: black;
+            }""")
+
+        elif status == 1:
+            line.setText(str(status))
+            line.setStyleSheet("""QLineEdit {
+            background-color: red; 
+            color: black;
+            }""")
+
+        elif status == 2:
+            line.setText(str(status))
+            line.setStyleSheet("""QLineEdit {
+            background-color: orange; 
+            color: black;
+            }""")
+
+        elif status == 3:
+            line.setText(str(status))
+            line.setStyleSheet("""QLineEdit {
+            background-color: rgb(0,165,0); 
+            color: black;
+            }""")
+
+        else :
+            line.setText('---')
+            line.setStyleSheet("""QLineEdit {
+            background-color: red; 
+            color: black;
+            }""")
+
+    def _handle_kill_clicked(self):
+        try:
+            if self._widget.btnKill.isChecked(): 
+                self.toggle_thruster(False)
+
+                self._widget.btnKill.setText('Thrusters disabled')           
+                self._widget.btnKill.setStyleSheet("""QPushButton {
+                    background-color: red; 
+                    border-radius: 8px;
+                    color: black;
+                    }""")
+
+            else:
+                self.toggle_thruster(True)
+                self._widget.btnKill.setText('Thrusters enabled')
+                self._widget.btnKill.setStyleSheet("""QPushButton {
+                    background-color: rgb(0,165,0); 
+                    border-radius: 8px;
+                    color: black;
+                    }""")
+
+        except rospy.ServiceException, e:
+            print "Service call failed: %s"%e
+           
+            #Sets the button green ---- SHOULD IT THOUGH?????
+            self._widget.btnKill.setText('Thrusters enabled')
+            self._widget.btnKill.setStyleSheet("""QPushButton {
+                    background-color: rgb(0,165,0); 
+                    border-radius: 8px;
+                    color: black;
+                    }""")
+
+            #Unchecks to avoid trouble when restart
+            self._widget.btnKill.setChecked(False)
+
+    def camera_selection0(self):
+        #Get cam on feed0
+        feed = 0
+        feed0_cam = self._widget.comboBox_feed0.currentIndex()
+        
+        #Publich message
+        self.pubCamera.publish(feed, feed0_cam)
+
+    def camera_selection1(self):
+        #Get cam on feed1
+        feed = 1
+        feed1_cam = self._widget.comboBox_feed1.currentIndex()
+
+        #Publich message
+        self.pubCamera.publish(feed, feed1_cam)
+
+    def camera_selection2(self):
+        #Get cam on feed2
+        feed = 2
+        feed2_cam = self._widget.comboBox_feed2.currentIndex()
+
+        #Publich message
+        self.pubCamera.publish(feed, feed2_cam)
+
+    def callback_bluetooth(self, btMsg):
+        self._widget.lineBluetoothMessage.setText(str(btMsg))
+
     def shutdown_plugin(self):
-        #self.sub.unregister()
-        pass
-
-    def save_settings(self, plugin_settings, instance_settings):
-        # TODO save intrinsic configuration, usually using:
-        # instance_settings.set_value(k, v)
-        pass
-
-    def restore_settings(self, plugin_settings, instance_settings):
-        # TODO restore intrinsic configuration, usually using:
-        # v = instance_settings.value(k)
-        pass
-
-    #def listener():
-    #    rospy.init_node('listener', anonymous = True) 
-    #    rospy.Subscriber("controller/mode", String, callback) #callback blir en thread
-    #    rospy.spin()
-
-    #def callback(self, mode):
-    	#rospy.loginfo(mode)
-    	#pub = rospy.Publisher('chatter', String, queue_size=10)
-    	#pub.publish(mode)
-        #if mode != control_mode:
-        #    control_mode = mode
-        #self._widget.lineControlMode.setText(str(mode))
-        #rospy.loginfo(mode)
+        self.subControlMode.unregister()
+        self.subDepth.unregister()
+        self.subSensor.unregister()
 
