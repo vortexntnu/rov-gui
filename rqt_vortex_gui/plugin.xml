@@ -1,0 +1,20 @@
+<library path="src">
+  <class name="Vortex gui" type="rqt_vortex_gui.my_module.MyPlugin" base_class_type="rqt_gui_py::Plugin">
+    <description>
+      rqt plugin for vortex gui
+    </description>
+    <qtgui>
+      <!-- optional grouping...
+      <group>
+        <label>Group</label>
+      </group>
+      <group>
+        <label>Subgroup</label>
+      </group>
+      -->
+      <label>Vortex gui</label>
+      <icon type="theme">system-help</icon>
+      <statustip>Vortex gui</statustip>
+    </qtgui>
+  </class>
+</library>
