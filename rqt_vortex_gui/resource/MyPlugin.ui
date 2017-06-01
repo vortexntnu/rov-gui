@@ -184,18 +184,6 @@
      </font>
     </property>
    </widget>
-   <zorder>labelControlMode</zorder>
-   <zorder>labelControlMode_2</zorder>
-   <zorder>lineAccelerometer</zorder>
-   <zorder>lineMagnetometer</zorder>
-   <zorder>labelControlMode_3</zorder>
-   <zorder>lineGyroscope</zorder>
-   <zorder>labelControlMode</zorder>
-   <zorder>labelControlMode_2</zorder>
-   <zorder>lineAccelerometer</zorder>
-   <zorder>lineMagnetometer</zorder>
-   <zorder>labelControlMode_3</zorder>
-   <zorder>lineGyroscope</zorder>
   </widget>
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
@@ -284,11 +272,6 @@
      </font>
     </property>
    </widget>
-   <zorder>labelBluetoothMessage</zorder>
-   <zorder>lineBluetoothMessage</zorder>
-   <zorder>labelControlMode_4</zorder>
-   <zorder>lineControlMode</zorder>
-   <zorder>gbLights</zorder>
   </widget>
   <widget class="QGroupBox" name="gbCompass">
    <property name="geometry">
@@ -317,8 +300,16 @@
      </rect>
     </property>
    </widget>
-   <zorder>dial</zorder>
-   <zorder>dial</zorder>
+   <widget class="QDial" name="dial_2">
+    <property name="geometry">
+     <rect>
+      <x>-20</x>
+      <y>20</y>
+      <width>131</width>
+      <height>111</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QGroupBox" name="gbLights">
    <property name="geometry">
@@ -409,9 +400,6 @@
      <string>Bluetooth light</string>
     </property>
    </widget>
-   <zorder>label_4</zorder>
-   <zorder>btn_ramen</zorder>
-   <zorder>horizontalSlider_frontLight</zorder>
    <zorder>btn_bluetooth</zorder>
    <zorder>label_4</zorder>
    <zorder>horizontalSlider_frontLight</zorder>
@@ -1937,10 +1925,13 @@
      </font>
     </property>
     <property name="maximum">
-     <number>100</number>
+     <number>70</number>
     </property>
     <property name="orientation">
      <enum>Qt::Vertical</enum>
+    </property>
+    <property name="invertedAppearance">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEditDepth">
@@ -1956,6 +1947,9 @@
      <font>
       <pointsize>10</pointsize>
      </font>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
   </widget>

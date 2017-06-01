@@ -59,7 +59,7 @@ class MyPlugin(Plugin):
 
         #Vortex logo
         self._widget.label_6.setStyleSheet("""QLabel {
-            image: url(Documents/Vortex/logo_lang_sort.png);
+            image: url(catkin_ws/src/rov-gui/rqt_vortex_gui/resource/logo_lang_sort.png);
             }""")
 
         #Control mode
@@ -69,7 +69,8 @@ class MyPlugin(Plugin):
 
 
         #Depth
-        self._widget.verticalSliderDepth.setValue(10)
+        self._widget.verticalSliderDepth.setEnabled(False)
+        self._widget.verticalSliderDepth.setValue(0)
         self._widget.lineEditDepth.setReadOnly(True)
         self._widget.lineEditDepth.setText('init')
         self.subDepth = rospy.Subscriber("/state_estimate", Odometry, self.callback_depth)
@@ -136,7 +137,10 @@ class MyPlugin(Plugin):
         self._widget.lineControlMode.setText(mode.data)
 
     def callback_depth(self, depth):
-        self._widget.verticalSliderDepth.setValue(depth.pose.pose.position.z)
+        depth_update = depth*10
+        self._widget.verticalSliderDepth.setValue(depth_update)
+
+        #self._widget.verticalSliderDepth.setValue(depth.pose.pose.position.z)
         self._widget.lineEditDepth.setText(str(depth.pose.pose.position.z))
 
     def handle_ramen_clicked(self):
