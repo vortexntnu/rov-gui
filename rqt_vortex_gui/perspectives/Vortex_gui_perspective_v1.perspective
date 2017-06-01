@@ -1,0 +1,93 @@
+{
+  "keys": {}, 
+  "groups": {
+    "pluginmanager": {
+      "keys": {
+        "running-plugins": {
+          "type": "repr", 
+          "repr": "{u'rqt_pose_view/PoseView': [1], u'rqt_vortex_gui/Vortex gui': [1]}"
+        }
+      }, 
+      "groups": {
+        "plugin__rqt_vortex_gui__Vortex gui__1": {
+          "keys": {}, 
+          "groups": {
+            "dock_widget__MyPluginUi": {
+              "keys": {
+                "dockable": {
+                  "type": "repr", 
+                  "repr": "True"
+                }, 
+                "parent": {
+                  "type": "repr", 
+                  "repr": "None"
+                }, 
+                "dock_widget_title": {
+                  "type": "repr", 
+                  "repr": "u'Form'"
+                }
+              }, 
+              "groups": {}
+            }
+          }
+        }, 
+        "plugin__rqt_pose_view__PoseView__1": {
+          "keys": {}, 
+          "groups": {
+            "dock_widget__GLViewWidget": {
+              "keys": {
+                "dockable": {
+                  "type": "repr", 
+                  "repr": "True"
+                }, 
+                "parent": {
+                  "type": "repr", 
+                  "repr": "None"
+                }, 
+                "dock_widget_title": {
+                  "type": "repr", 
+                  "repr": "u'Pose View'"
+                }
+              }, 
+              "groups": {}
+            }, 
+            "plugin": {
+              "keys": {
+                "view_matrix": {
+                  "type": "repr", 
+                  "repr": "u'[[0.7071067690849304, 0.29883623123168945, -0.6408563852310181, 0.0], [-0.7071067690849304, 0.29883623123168945, -0.6408563852310181, 0.0], [0.0, 0.9063078165054321, 0.42261824011802673, 0.0], [0.0, -3.0, -17.5, 1.0]]'"
+                }
+              }, 
+              "groups": {}
+            }
+          }
+        }
+      }
+    }, 
+    "mainwindow": {
+      "keys": {
+        "geometry": {
+          "type": "repr(QByteArray.hex)", 
+          "repr(QByteArray.hex)": "QtCore.QByteArray('01d9d0cb00020000000000b10000005f000004a900000247000000b10000007b000004a90000024700000000000000000556')", 
+          "pretty-print": "       _   G   {   G    V"
+        }, 
+        "state": {
+          "type": "repr(QByteArray.hex)", 
+          "repr(QByteArray.hex)": "QtCore.QByteArray('000000ff00000000fd00000002000000010000029a00000051fc0200000001fb00000052007200710074005f0076006f0072007400650078005f006700750069005f005f0056006f00720074006500780020006700750069005f005f0032005f005f004d00790050006c007500670069006e00550069010000000000000051000000000000000000000003000003f9000001b7fc0100000003fb00000052007200710074005f0076006f0072007400650078005f006700750069005f005f0056006f00720074006500780020006700750069005f005f0031005f005f004d00790050006c007500670069006e005500690100000000000002910000009c00fffffffb00000084007200710074005f0076006f0072007400650078005f00630061006d006500720061005f00730065006c0065006300740069006f006e005f005f0056006f0072007400650078002000630061006d00650072006100200073006c0065006300740069006f006e005f005f0031005f005f004d00790050006c007500670069006e005500690100000000000001740000000000000000fb00000050007200710074005f0070006f00730065005f0076006900650077005f005f0050006f007300650056006900650077005f005f0031005f005f0047004c0056006900650077005700690064006700650074010000029700000162000000be00ffffff000003f60000000000000004000000040000000800000008fc00000001000000030000000100000036004d0069006e0069006d0069007a006500640044006f0063006b00570069006400670065007400730054006f006f006c0062006100720000000000ffffffff0000000000000000')", 
+          "pretty-print": "                 Rrqt_vortex_gui__Vortex gui__2__MyPluginUi                   Rrqt_vortex_gui__Vortex gui__1__MyPluginUi           rqt_vortex_camera_selection__Vortex camera slection__1__MyPluginUi          Prqt_pose_view__PoseView__1__GLViewWidget                            6MinimizedDockWidgetsToolbar        "
+        }
+      }, 
+      "groups": {
+        "toolbar_areas": {
+          "keys": {
+            "MinimizedDockWidgetsToolbar": {
+              "type": "repr", 
+              "repr": "8"
+            }
+          }, 
+          "groups": {}
+        }
+      }
+    }
+  }
+}
