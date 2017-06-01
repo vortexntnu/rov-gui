@@ -136,7 +136,7 @@ class MyPlugin(Plugin):
         #Bluetooth
         self._widget.lineBluetoothMessage.setReadOnly(True)
         self._widget.lineBluetoothMessage.setText("init")
-        self.subBluetooth = rospy.Subscriber('/bluetooth/container_id', DiagnosticStatus, self.callback_bluetooth)
+        self.subBluetooth = rospy.Subscriber('/bluetooth/container_id', ContainerID, self.callback_bluetooth)
 
 
     def callback_controlMode(self, mode):
@@ -347,7 +347,7 @@ class MyPlugin(Plugin):
         self.pubCamera.publish(feed, feed2_cam)
 
     def callback_bluetooth(self, btMsg):
-        self._widget.lineBluetoothMessage.setText(str(btMsg))
+        self._widget.lineBluetoothMessage.setText(str(btMsg.container_id))
 
     def shutdown_plugin(self):
         self.subControlMode.unregister()
