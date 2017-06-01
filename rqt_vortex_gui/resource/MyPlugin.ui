@@ -1,78 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>vortex_gui</class>
- <widget class="QWidget" name="vortex_gui">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>659</width>
-    <height>402</height>
+    <width>667</width>
+    <height>412</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QPushButton" name="btnKill">
-   <property name="geometry">
-    <rect>
-     <x>310</x>
-     <y>20</y>
-     <width>211</width>
-     <height>71</height>
-    </rect>
-   </property>
-   <property name="palette">
-    <palette>
-     <active>
-      <colorrole role="Button">
-       <brush brushstyle="SolidPattern">
-        <color alpha="255">
-         <red>0</red>
-         <green>170</green>
-         <blue>0</blue>
-        </color>
-       </brush>
-      </colorrole>
-     </active>
-     <inactive>
-      <colorrole role="Button">
-       <brush brushstyle="SolidPattern">
-        <color alpha="255">
-         <red>0</red>
-         <green>170</green>
-         <blue>0</blue>
-        </color>
-       </brush>
-      </colorrole>
-     </inactive>
-     <disabled>
-      <colorrole role="Button">
-       <brush brushstyle="SolidPattern">
-        <color alpha="255">
-         <red>0</red>
-         <green>170</green>
-         <blue>0</blue>
-        </color>
-       </brush>
-      </colorrole>
-     </disabled>
-    </palette>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>14</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Thruster enabled</string>
-   </property>
-  </widget>
   <widget class="QGroupBox" name="gbSensorCalibration">
    <property name="geometry">
     <rect>
      <x>220</x>
-     <y>270</y>
+     <y>280</y>
      <width>201</width>
      <height>121</height>
     </rect>
@@ -135,6 +80,9 @@
       <pointsize>10</pointsize>
      </font>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
    </widget>
    <widget class="QLineEdit" name="lineMagnetometer">
     <property name="geometry">
@@ -149,6 +97,9 @@
      <font>
       <pointsize>10</pointsize>
      </font>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QLabel" name="labelControlMode_3">
@@ -183,233 +134,90 @@
       <pointsize>10</pointsize>
      </font>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
    </widget>
   </widget>
-  <widget class="QGroupBox" name="groupBox">
+  <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
-     <x>220</x>
-     <y>80</y>
-     <width>321</width>
-     <height>171</height>
+     <x>10</x>
+     <y>10</y>
+     <width>241</width>
+     <height>91</height>
     </rect>
    </property>
-   <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-    </font>
-   </property>
-   <property name="title">
+   <property name="text">
     <string/>
    </property>
-   <widget class="QLabel" name="labelBluetoothMessage">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>110</y>
-      <width>191</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>Bluetooth message:</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineBluetoothMessage">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>130</y>
-      <width>291</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-   </widget>
-   <widget class="QLabel" name="labelControlMode_4">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>30</y>
-      <width>141</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>Control mode:</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineControlMode">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>50</y>
-      <width>291</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-   </widget>
+   <property name="pixmap">
+    <pixmap>../../Documents/Vortex/logo_lang_sort.png</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
   </widget>
-  <widget class="QGroupBox" name="gbCompass">
+  <widget class="QPushButton" name="btnKill">
    <property name="geometry">
     <rect>
-     <x>450</x>
-     <y>270</y>
-     <width>111</width>
-     <height>121</height>
+     <x>310</x>
+     <y>30</y>
+     <width>211</width>
+     <height>71</height>
     </rect>
+   </property>
+   <property name="palette">
+    <palette>
+     <active>
+      <colorrole role="Button">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>170</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </active>
+     <inactive>
+      <colorrole role="Button">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>170</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </inactive>
+     <disabled>
+      <colorrole role="Button">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>0</red>
+         <green>170</green>
+         <blue>0</blue>
+        </color>
+       </brush>
+      </colorrole>
+     </disabled>
+    </palette>
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <pointsize>14</pointsize>
     </font>
    </property>
-   <property name="title">
-    <string>Heading:</string>
+   <property name="text">
+    <string>Thruster enabled</string>
    </property>
-   <widget class="QDial" name="dial">
-    <property name="geometry">
-     <rect>
-      <x>-20</x>
-      <y>20</y>
-      <width>131</width>
-      <height>111</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QDial" name="dial_2">
-    <property name="geometry">
-     <rect>
-      <x>-20</x>
-      <y>20</y>
-      <width>131</width>
-      <height>111</height>
-     </rect>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QGroupBox" name="gbLights">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>110</y>
-     <width>181</width>
-     <height>141</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-    </font>
-   </property>
-   <property name="title">
-    <string>Lights:</string>
-   </property>
-   <widget class="QLabel" name="label_4">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>30</y>
-      <width>91</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Front light: </string>
-    </property>
-   </widget>
-   <widget class="QSlider" name="horizontalSlider_frontLight">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>50</y>
-      <width>151</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btn_ramen">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>80</y>
-      <width>131</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Raman light</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btn_bluetooth">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>110</y>
-      <width>131</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Bluetooth light</string>
-    </property>
-   </widget>
-   <zorder>btn_bluetooth</zorder>
-   <zorder>label_4</zorder>
-   <zorder>horizontalSlider_frontLight</zorder>
-   <zorder>btn_ramen</zorder>
   </widget>
   <widget class="QGroupBox" name="gbCameraSelection">
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>270</y>
+     <y>280</y>
      <width>181</width>
      <height>121</height>
     </rect>
@@ -1887,11 +1695,184 @@
     </item>
    </widget>
   </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>200</y>
+     <width>321</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="title">
+    <string>Bluetooth message:</string>
+   </property>
+   <widget class="QLineEdit" name="lineBluetoothMessage">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>30</y>
+      <width>301</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="gbCompass">
+   <property name="geometry">
+    <rect>
+     <x>430</x>
+     <y>280</y>
+     <width>131</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="title">
+    <string>Heading:</string>
+   </property>
+   <widget class="QDial" name="dial_1">
+    <property name="geometry">
+     <rect>
+      <x>-10</x>
+      <y>20</y>
+      <width>141</width>
+      <height>101</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="line_compass">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>0</y>
+      <width>51</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="gbLights">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>120</y>
+     <width>181</width>
+     <height>141</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="title">
+    <string>Lights:</string>
+   </property>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>30</y>
+      <width>91</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Front light: </string>
+    </property>
+   </widget>
+   <widget class="QSlider" name="horizontalSlider_frontLight">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>50</y>
+      <width>151</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_ramen">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>80</y>
+      <width>131</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Raman light</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_bluetooth">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>110</y>
+      <width>131</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Bluetooth light</string>
+    </property>
+   </widget>
+   <zorder>btn_bluetooth</zorder>
+   <zorder>label_4</zorder>
+   <zorder>horizontalSlider_frontLight</zorder>
+   <zorder>btn_ramen</zorder>
+  </widget>
   <widget class="QGroupBox" name="groupBox_2">
    <property name="geometry">
     <rect>
      <x>580</x>
-     <y>10</y>
+     <y>20</y>
      <width>71</width>
      <height>381</height>
     </rect>
@@ -1953,33 +1934,39 @@
     </property>
    </widget>
   </widget>
-  <widget class="QLabel" name="label_6">
+  <widget class="QGroupBox" name="groupBox_3">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>0</y>
-     <width>241</width>
-     <height>91</height>
+     <x>220</x>
+     <y>120</y>
+     <width>321</width>
+     <height>61</height>
     </rect>
    </property>
-   <property name="text">
-    <string/>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
-   <property name="pixmap">
-    <pixmap>../../Documents/Vortex/logo_lang_sort.png</pixmap>
+   <property name="title">
+    <string>Control mode:</string>
    </property>
-   <property name="scaledContents">
-    <bool>true</bool>
-   </property>
+   <widget class="QLineEdit" name="lineControlMode">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>30</y>
+      <width>301</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+   </widget>
   </widget>
-  <zorder>gbSensorCalibration</zorder>
-  <zorder>groupBox</zorder>
-  <zorder>gbCompass</zorder>
-  <zorder>gbLights</zorder>
-  <zorder>gbCameraSelection</zorder>
-  <zorder>groupBox_2</zorder>
-  <zorder>label_6</zorder>
-  <zorder>btnKill</zorder>
  </widget>
  <resources/>
  <connections/>

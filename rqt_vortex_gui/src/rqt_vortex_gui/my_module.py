@@ -11,6 +11,7 @@ from std_msgs.msg import String
 from nav_msgs.msg import Odometry
 from vortex_msgs.msg import CameraFeedSelection, LightInput, ContainerID
 from diagnostic_msgs.msg import DiagnosticStatus
+from sensor_msgs.msg import Imu
 
 from thruster_interface.srv import *
 
@@ -69,10 +70,11 @@ class MyPlugin(Plugin):
 
 
         #Depth
-        self._widget.verticalSliderDepth.setEnabled(False)
+        self._widget.verticalSliderDepth.setEnabled(True)
         self._widget.verticalSliderDepth.setValue(0)
         self._widget.lineEditDepth.setReadOnly(True)
         self._widget.lineEditDepth.setText('init')
+        self._widget.verticalSliderDepth.setRange(0, 60) #Range 1-5 m
         self.subDepth = rospy.Subscriber("/state_estimate", Odometry, self.callback_depth)
 
 
@@ -117,7 +119,11 @@ class MyPlugin(Plugin):
 
 
         #Compass
-        self._widget.dial.setValue(50)
+        self._widget.dial_1.setRange(30, 330)
+        self._widget.dial_1.show()
+        self._widget.dial_1.setValue(180)
+        self._widget.line_compass.setText('init')
+        self.subCompass = rospy.Subscriber("/sensors/imu/euler", Imu, self.callback_compass)
 
 
         #Camera Selection
@@ -137,11 +143,11 @@ class MyPlugin(Plugin):
         self._widget.lineControlMode.setText(mode.data)
 
     def callback_depth(self, depth):
-        depth_update = depth*10
-        self._widget.verticalSliderDepth.setValue(depth_update)
+        depth_update = depth.pose.pose.position.z
+        bar_update = (depth_update*10)+10
+        self._widget.verticalSliderDepth.setValue(bar_update)
 
-        #self._widget.verticalSliderDepth.setValue(depth.pose.pose.position.z)
-        self._widget.lineEditDepth.setText(str(depth.pose.pose.position.z))
+        self._widget.lineEditDepth.setText(str(depth_update))
 
     def handle_ramen_clicked(self):
         try:
@@ -301,6 +307,21 @@ class MyPlugin(Plugin):
             #Unchecks to avoid trouble when restart
             self._widget.btnKill.setChecked(False)
 
+    def callback_compass(self, _orientation):
+        orientation = int(_orientation.orientation.z)
+        self._widget.line_compass.setText(str(orientation))
+
+        if (orientation >= 30) and (orientation <= 330):
+            self._widget.dial_1.show()
+            self._widget.dial_1.setValue(orientation)
+            self._widget.line_compass.setStyleSheet("""QLineEdit {background-color:white; color: black}""")            
+        elif (orientation < 30) and (orientation >= 0):
+            self._widget.dial_1.setValue(30)
+            self._widget.line_compass.setStyleSheet("""QLineEdit {background-color:red; color: black}""")
+        elif (orientation > 330) and (orientation <= 360):
+            self._widget.dial_1.setValue(330)
+            self._widget.line_compass.setStyleSheet("""QLineEdit {background-color:red; color: black}""")
+
     def camera_selection0(self):
         #Get cam on feed0
         feed = 0
@@ -332,4 +353,6 @@ class MyPlugin(Plugin):
         self.subControlMode.unregister()
         self.subDepth.unregister()
         self.subSensor.unregister()
+        self.subCompass.unregister()
+        self.subBluetooth.unregister()
 
