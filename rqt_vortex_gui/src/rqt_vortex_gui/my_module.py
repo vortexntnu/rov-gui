@@ -70,7 +70,7 @@ class MyPlugin(Plugin):
 
 
         #Depth
-        self._widget.verticalSliderDepth.setEnabled(True)
+        self._widget.verticalSliderDepth.setEnabled(False)
         self._widget.verticalSliderDepth.setValue(0)
         self._widget.lineEditDepth.setReadOnly(True)
         self._widget.lineEditDepth.setText('init')
@@ -122,6 +122,7 @@ class MyPlugin(Plugin):
         self._widget.dial_1.setRange(30, 330)
         self._widget.dial_1.show()
         self._widget.dial_1.setValue(180)
+        self._widget.dial_1.setEnabled(False)
         self._widget.line_compass.setText('init')
         self.subCompass = rospy.Subscriber("/sensors/imu/euler", Imu, self.callback_compass)
 
