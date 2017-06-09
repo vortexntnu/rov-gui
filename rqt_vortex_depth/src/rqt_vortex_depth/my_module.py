@@ -52,15 +52,26 @@ class MyPlugin(Plugin):
 
 
         #MY CODE
-        self._widget.verticalSliderDepth.setValue(10)
-        self._widget.lineEditDepth.setReadOnly(True)
-        self._widget.lineEditDepth.setText('init')
+        #self._widget.verticalSliderDepth.setValue(10)
+        #self._widget.lineEditDepth.setReadOnly(True)
+        #self._widget.lineEditDepth.setText('init')
 
         #Subscriber
-        self.sub = rospy.Subscriber("/state_estimate", Odometry, self.callback)
+        #self.sub = rospy.Subscriber("/state_estimate", Odometry, self.callback)
+
+        self._widget.verticalSliderDepth.setEnabled(False)
+        self._widget.verticalSliderDepth.setInvertedAppearance(True)
+        self._widget.verticalSliderDepth.setValue(0)
+        self._widget.lineEditDepth.setReadOnly(True)
+        self._widget.lineEditDepth.setText('init')
+        self._widget.verticalSliderDepth.setRange(0, 60) #Range 1-5 m
+        self.subDepth = rospy.Subscriber("/state_estimate", Odometry, self.callback_depth)
+
 
     def shutdown_plugin(self):
-        self.sub.unregister()
+        #self.sub.unregister()
+        self.subDepth.unregister()
+
 
     def save_settings(self, plugin_settings, instance_settings):
         # TODO save intrinsic configuration, usually using:
@@ -73,6 +84,13 @@ class MyPlugin(Plugin):
         pass
 
 
-    def callback(self, depth):
-    	self._widget.verticalSliderDepth.setValue(depth.pose.pose.position.z)
-    	self._widget.lineEditDepth.setText(str(depth.pose.pose.position.z))
+    #def callback(self, depth):
+    #	self._widget.verticalSliderDepth.setValue(depth.pose.pose.position.z)
+    #	self._widget.lineEditDepth.setText(str(depth.pose.pose.position.z))
+
+    def callback_depth(self, depth):
+        depth_update = depth.pose.pose.position.z
+        bar_update = (depth_update*10)+10
+        self._widget.verticalSliderDepth.setValue(bar_update)
+
+        self._widget.lineEditDepth.setText(str(depth_update))
