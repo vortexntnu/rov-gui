@@ -35,14 +35,14 @@ class MyPlugin(Plugin):
         # Create QWidget
         self._widget = QWidget()
         ui_file = os.path.join(rp.get_path('rqt_vortex_light'), 'resource', 'MyPlugin.ui')
-        
+
         # Extend the widget with all attributes and children from UI file
         loadUi(ui_file, self._widget)
 
         # Give QObjects reasonable names
         self._widget.setObjectName('VortexLightUi')
 
-        #Makes it possible to open more than one of each plugin
+        # Makes it possible to open more than one of each plugin
         if context.serial_number() > 1:
             self._widget.setWindowTitle(self._widget.windowTitle() + (' (%d)' % context.serial_number()))
         # Add widget to the user interface
@@ -52,31 +52,31 @@ class MyPlugin(Plugin):
         self._widget.btn_bluetooth.setCheckable(True)
 
         self._widget.btn_ramen.setStyleSheet("""QPushButton {
-            background-color: red; 
+            background-color: red;
             border-radius: 8px;
             color: black;
             }""")
-        
+
         self._widget.btn_bluetooth.setStyleSheet("""QPushButton {
-            background-color: red; 
+            background-color: red;
             border-radius: 8px;
             color: black;
-            }""")        
+            }""")
 
         self._widget.btn_ramen.toggled.connect(self.handle_ramen_clicked)
         self._widget.btn_bluetooth.toggled.connect(self.handle_bluetooth_clicked)
         self._widget.horizontalSlider_frontLight.sliderMoved.connect(self.handle_slider_moved)
 
-        self.pub = rospy.Publisher('light_node', LightInput, queue_size=10)
+        self.pub = rospy.Publisher('toggle_light', LightInput, queue_size=10)
 
 
     def handle_ramen_clicked(self):
         try:
-            if self._widget.btn_ramen.isChecked(): 
+            if self._widget.btn_ramen.isChecked():
                 self.pub.publish('raman', ON)
-           
+
                 self._widget.btn_ramen.setStyleSheet("""QPushButton {
-                    background-color: green; 
+                    background-color: green;
                     border-radius: 8px;
                     color: black;
                     }""")
@@ -86,7 +86,7 @@ class MyPlugin(Plugin):
             else:
                 self.pub.publish('raman', OFF)
                 self._widget.btn_ramen.setStyleSheet("""QPushButton {
-                    background-color: red; 
+                    background-color: red;
                     border-radius: 8px;
                     color: black;
                     }""")
@@ -95,10 +95,10 @@ class MyPlugin(Plugin):
 
         except rospy.ServiceException, e:
             print "Publish call failed: %s"%e
-           
+
             #Sets the button green ---- SHOULD IT THOUGH?????
             self._widget.btn_ramen.setStyleSheet("""QPushButton {
-                    background-color: red; 
+                    background-color: red;
                     border-radius: 8px;
                     color: black;
                     }""")
@@ -108,11 +108,11 @@ class MyPlugin(Plugin):
 
     def handle_bluetooth_clicked(self):
         try:
-            if self._widget.btn_bluetooth.isChecked(): 
+            if self._widget.btn_bluetooth.isChecked():
                 self.pub.publish('bluetooth', ON)
-           
+
                 self._widget.btn_bluetooth.setStyleSheet("""QPushButton {
-                    background-color: green; 
+                    background-color: green;
                     border-radius: 8px;
                     color: black;
                     }""")
@@ -122,7 +122,7 @@ class MyPlugin(Plugin):
             else:
                 self.pub.publish('bluetooth', OFF)
                 self._widget.btn_bluetooth.setStyleSheet("""QPushButton {
-                    background-color: red; 
+                    background-color: red;
                     border-radius: 8px;
                     color: black;
                     }""")
@@ -131,10 +131,10 @@ class MyPlugin(Plugin):
 
         except rospy.ServiceException, e:
             print "Publish call failed: %s"%e
-           
+
             #Sets the button green ---- SHOULD IT THOUGH?????
             self._widget.btn_bluetooth.setStyleSheet("""QPushButton {
-                    background-color: red; 
+                    background-color: red;
                     border-radius: 8px;
                     color: black;
                     }""")
@@ -149,7 +149,7 @@ class MyPlugin(Plugin):
             print 'front: ' + str(intensity)
 
         except rospy.ServiceException, e:
-            print "Publish call failed: %s"%e            
+            print "Publish call failed: %s"%e
 
     def shutdown_plugin(self):
         pass
