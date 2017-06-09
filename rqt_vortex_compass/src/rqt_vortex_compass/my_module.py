@@ -47,41 +47,32 @@ class MyPlugin(Plugin):
         # Add widget to the user interface
         context.add_widget(self._widget)
 
-        self.sub = rospy.Subscriber("/sensors/imu/euler", Imu, self.callback)
 
-    def callback(self, _orientation):
-        try:
-            orientation = int(_orientation)
+        self._widget.dial_1.setRange(30, 330)
+        self._widget.dial_1.show()
+        self._widget.dial_1.setValue(180)
+        self._widget.dial_1.setEnabled(False)
+        self._widget.line_compass.setText('init')
+        self.subCompass = rospy.Subscriber("/sensors/imu/euler", Imu, self.callback_compass)
 
-            forward = 0
-            right = 270
-            left = 90
-            backward = 180
-            cake = 30
-            limit_left = backward - cake
-            limit_right = backward + cake
-            value = 0
-            slope = 50.0/150.0
+    def callback_compass(self, _orientation):
+        orientation = int(_orientation.orientation.z)
+        self._widget.line_compass.setText(str(orientation))
 
-            if (orientation > limit_left) and (orientation < limit_right):
-                if orientation < backward:
-                    value = 1
-                else:
-                    value = 99
-            elif orientation < backward:
-                value = 50 - slope*orientation
-            elif orientation > backward:
-                value = 100 - slope*(orientation-210.0)
+        if (orientation >= 30) and (orientation <= 330):
+            self._widget.dial_1.show()
+            self._widget.dial_1.setValue(orientation)
+            self._widget.line_compass.setStyleSheet("""QLineEdit {background-color:white; color: black}""")            
+        elif (orientation < 30) and (orientation >= 0):
+            self._widget.dial_1.setValue(30)
+            self._widget.line_compass.setStyleSheet("""QLineEdit {background-color:red; color: black}""")
+        elif (orientation > 330) and (orientation <= 360):
+            self._widget.dial_1.setValue(330)
+            self._widget.line_compass.setStyleSheet("""QLineEdit {background-color:red; color: black}""")
 
-            print value
-
-            self._widget.dial.setValue(orientation.vector.z)
-            self._widget.lineValue.setText(str(value))
-        except Exception as e:
-            raise
 
     def shutdown_plugin(self):
-        self.sub.unregister()
+        self.subCompass.unregister()
 
     def save_settings(self, plugin_settings, instance_settings):
         # TODO save intrinsic configuration, usually using:
