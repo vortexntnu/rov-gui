@@ -145,6 +145,9 @@ class MyPlugin(Plugin):
     def handle_slider_moved(self):
         try:
             intensity = self._widget.horizontalSlider_frontLight.value()
+			if (intensity < 20):
+				intensity = OFF
+
             self.pub.publish('front', intensity)
             print 'front: ' + str(intensity)
 
