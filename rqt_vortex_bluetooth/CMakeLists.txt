@@ -4,15 +4,18 @@ project(rqt_vortex_bluetooth)
 find_package(catkin REQUIRED COMPONENTS
   rospy
   rqt_gui_py
-  std_msgs
+  vortex_msgs
+  roslint
 )
 
 
 catkin_python_setup()
 
+roslint_python()
+
 
 catkin_package(
-	CATKIN_DEPENDS rospy std_msgs
+	CATKIN_DEPENDS rospy vortex_msgs
 )
 
 include_directories(

@@ -5,8 +5,7 @@ import rospy
 from qt_gui.plugin import Plugin
 from python_qt_binding import loadUi
 from python_qt_binding.QtWidgets import QWidget, QGraphicsView
-
-from std_msgs.msg import String
+from vortex_msgs.msg import ContainerID
 
 
 class MyPlugin(Plugin):
@@ -49,11 +48,9 @@ class MyPlugin(Plugin):
 
 
         #MY CODE
-        self._widget.lineBluetoothMessage.setReadOnly(True)
+		self._widget.lineBluetoothMessage.setReadOnly(True)
         self._widget.lineBluetoothMessage.setText("init")
-
-        #Subscriber
-		self.subBluetooth = rospy.Subscriber('/bluetooth/container_id', ContainerID, self.callback_bluetooth)
+        self.subBluetooth = rospy.Subscriber('/bluetooth/container_id', ContainerID, self.callback_bluetooth)
 
     def shutdown_plugin(self):
         self.subBluetooth.unregister()
