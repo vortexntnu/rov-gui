@@ -12,6 +12,7 @@ from nav_msgs.msg import Odometry
 from vortex_msgs.msg import CameraFeedSelection, LightInput, ContainerID
 from diagnostic_msgs.msg import DiagnosticStatus
 from sensor_msgs.msg import Imu
+from geometry_msgs.msg import Vector3Stamped
 
 from thruster_interface.srv import *
 
@@ -124,7 +125,7 @@ class MyPlugin(Plugin):
         self._widget.dial_1.setValue(180)
         self._widget.dial_1.setEnabled(False)
         self._widget.line_compass.setText('init')
-        self.subCompass = rospy.Subscriber("/sensors/imu/euler", Imu, self.callback_compass)
+        self.subCompass = rospy.Subscriber("/sensors/imu/euler", Vector3Stamped, self.callback_compass)
 
 
         #Camera Selection
@@ -221,6 +222,9 @@ class MyPlugin(Plugin):
     def handle_slider_moved(self):
         try:
             intensity = self._widget.horizontalSlider_frontLight.value()
+			if (intensity < 20):
+				intensity = OFF
+
             self.pubLights.publish('front', intensity)
             print 'front: ' + str(intensity)
 
@@ -309,7 +313,7 @@ class MyPlugin(Plugin):
             self._widget.btnKill.setChecked(False)
 
     def callback_compass(self, _orientation):
-        orientation = int(_orientation.orientation.z)
+        orientation = int(_orientation.vector.z)
         self._widget.line_compass.setText(str(orientation))
 
         if (orientation >= 30) and (orientation <= 330):
