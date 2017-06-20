@@ -94,7 +94,7 @@ class MyPlugin(Plugin):
         self._widget.btn_ramen.toggled.connect(self.handle_ramen_clicked)
         self._widget.btn_bluetooth.toggled.connect(self.handle_bluetooth_clicked)
         self._widget.horizontalSlider_frontLight.sliderMoved.connect(self.handle_slider_moved)
-        self.pubLights = rospy.Publisher('light_node', LightInput, queue_size=10)
+        self.pubLights = rospy.Publisher('toggle_light', LightInput, queue_size=10)
 
 
         #Sensor calibration

@@ -53,33 +53,10 @@ class MyPlugin(Plugin):
         self._widget.lineBluetoothMessage.setText("init")
 
         #Subscriber
-        #self.sub = rospy.Subscriber("/controller/mode", String, self.callback)
+		self.subBluetooth = rospy.Subscriber('/bluetooth/container_id', ContainerID, self.callback_bluetooth)
 
     def shutdown_plugin(self):
-        #self.sub.unregister()
-        pass
-
-    def save_settings(self, plugin_settings, instance_settings):
-        # TODO save intrinsic configuration, usually using:
-        # instance_settings.set_value(k, v)
-        pass
-
-    def restore_settings(self, plugin_settings, instance_settings):
-        # TODO restore intrinsic configuration, usually using:
-        # v = instance_settings.value(k)
-        pass
-
-    #def listener():
-    #    rospy.init_node('listener', anonymous = True) 
-    #    rospy.Subscriber("controller/mode", String, callback) #callback blir en thread
-    #    rospy.spin()
-
-    #def callback(self, mode):
-    	#rospy.loginfo(mode)
-    	#pub = rospy.Publisher('chatter', String, queue_size=10)
-    	#pub.publish(mode)
-        #if mode != control_mode:
-        #    control_mode = mode
-        #self._widget.lineControlMode.setText(str(mode))
-        #rospy.loginfo(mode)
-
+        self.subBluetooth.unregister()
+	
+	def callback_bluetooth(self, btMsg):
+        self._widget.lineBluetoothMessage.setText(str(btMsg.container_id))
