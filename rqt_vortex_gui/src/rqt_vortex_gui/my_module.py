@@ -117,10 +117,10 @@ class MyPlugin(Plugin):
             }""")
         self.toggle_thruster = rospy.ServiceProxy('/thruster_interface/thrusters_enable', ThrustersEnable)
 
-        self._widget.dial_1.setRange(30, 330)
+        self._widget.dial_1.setRange(-150, 150)
         # Compass
         self._widget.dial_1.show()
-        self._widget.dial_1.setValue(180)
+        self._widget.dial_1.setValue(0)
         self._widget.dial_1.setEnabled(False)
         self._widget.line_compass.setText('init')
         self.subCompass = rospy.Subscriber("/sensors/imu/euler", Vector3Stamped, self.callback_compass)
@@ -309,17 +309,12 @@ class MyPlugin(Plugin):
     def callback_compass(self, _orientation):
         orientation = int(_orientation.vector.z)
         self._widget.line_compass.setText(str(orientation) + '°')
-
-        if (orientation >= 30) and (orientation <= 330):
-            self._widget.dial_1.show()
-            self._widget.dial_1.setValue(orientation)
-            self._widget.line_compass.setStyleSheet("""QLineEdit {background-color:white; color: black}""")            
-        elif (orientation < 30) and (orientation >= 0):
-            self._widget.dial_1.setValue(30)
-            self._widget.line_compass.setStyleSheet("""QLineEdit {background-color:red; color: black}""")
-        elif (orientation > 330) and (orientation <= 360):
-            self._widget.dial_1.setValue(330)
-            self._widget.line_compass.setStyleSheet("""QLineEdit {background-color:red; color: black}""")
+        self._widget.dial_1.show()
+        self._widget.dial_1.setValue(orientation)
+        if -150 <= orientation <= 150:
+            self._widget.line_compass.setStyleSheet("""QLineEdit {background-color:white; color: black}""")
+        else:
+            self._widget.line_compass.setStyleSheet("""QLineEdit {background-color:orange; color: black}""")
 
     def camera_selection0(self):
         # Get cam on feed0
