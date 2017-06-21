@@ -245,7 +245,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Feed 0:</string>
+     <string>Screen 0:</string>
     </property>
    </widget>
    <widget class="QComboBox" name="comboBox_feed2">
@@ -733,7 +733,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Feed 1:</string>
+     <string>Screen 1:</string>
     </property>
    </widget>
    <widget class="QComboBox" name="comboBox_feed1">
@@ -1221,7 +1221,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Feed 2:</string>
+     <string>Screen 2:</string>
     </property>
    </widget>
    <widget class="QComboBox" name="comboBox_feed0">
