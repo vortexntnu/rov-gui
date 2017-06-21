@@ -307,7 +307,7 @@ class MyPlugin(Plugin):
             self._widget.btnKill.setChecked(False)
 
     def callback_compass(self, _orientation):
-        orientation = int(_orientation.vector.z)
+        orientation = int(_orientation.vector.x)
         self._widget.line_compass.setText(str(orientation) + '°')
         self._widget.dial_1.show()
         self._widget.dial_1.setValue(orientation)
