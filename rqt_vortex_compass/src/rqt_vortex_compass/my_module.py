@@ -6,7 +6,7 @@ from qt_gui.plugin import Plugin
 from python_qt_binding import loadUi
 from python_qt_binding.QtWidgets import QWidget, QGraphicsView
 
-from sensor_msgs.msg import Imu
+from geometry_msgs.msg import Vector3Stamped
 
 
 class MyPlugin(Plugin):
@@ -53,7 +53,7 @@ class MyPlugin(Plugin):
         self._widget.dial_1.setValue(180)
         self._widget.dial_1.setEnabled(False)
         self._widget.line_compass.setText('init')
-        self.subCompass = rospy.Subscriber("/sensors/imu/euler", Imu, self.callback_compass)
+        self.subCompass = rospy.Subscriber("/sensors/imu/euler", Vector3Stamped, self.callback_compass)
 
     def callback_compass(self, _orientation):
         orientation = int(_orientation.orientation.z)
