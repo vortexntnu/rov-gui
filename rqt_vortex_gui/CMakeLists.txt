@@ -5,11 +5,13 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   rqt_gui_py
   std_msgs
+  roslint
 )
 
 
 catkin_python_setup()
 
+roslint_python()
 
 catkin_package(
 	CATKIN_DEPENDS rospy std_msgs
@@ -21,7 +23,7 @@ include_directories(
 
 #add_executable(listener src/listener.py)
 #target_link_libraries(listener ${catkin_LIBRARIES})
-#add_dependencies( 
+#add_dependencies(
 
 
 install(PROGRAMS
