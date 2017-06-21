@@ -325,8 +325,8 @@ class MyPlugin(Plugin):
         # Get cam on feed0
         feed = 0
         feed0_cam = self._widget.comboBox_feed0.currentIndex()
-        
-        #Publich message
+
+        # Publish message
         self.pubCamera.publish(feed, feed0_cam)
 
     def camera_selection1(self):
@@ -334,7 +334,7 @@ class MyPlugin(Plugin):
         feed = 1
         feed1_cam = self._widget.comboBox_feed1.currentIndex()
 
-        #Publich message
+        # Publish message
         self.pubCamera.publish(feed, feed1_cam)
 
     def camera_selection2(self):
@@ -342,7 +342,7 @@ class MyPlugin(Plugin):
         feed = 2
         feed2_cam = self._widget.comboBox_feed2.currentIndex()
 
-        #Publich message
+        # Publish message
         self.pubCamera.publish(feed, feed2_cam)
 
     def callback_bluetooth(self, btMsg):
