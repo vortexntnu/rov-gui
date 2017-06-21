@@ -84,12 +84,12 @@ class MyPlugin(Plugin):
         self._widget.btn_ramen.setCheckable(True)
         self._widget.btn_bluetooth.setCheckable(True)
         self._widget.btn_ramen.setStyleSheet("""QPushButton {
-            background-color: red;
+            background-color: orange;
             border-radius: 8px;
             color: black;
             }""")
         self._widget.btn_bluetooth.setStyleSheet("""QPushButton {
-            background-color: red;
+            background-color: orange;
             border-radius: 8px;
             color: black;
             }""")
@@ -160,7 +160,7 @@ class MyPlugin(Plugin):
             else:
                 self.pubLights.publish('raman', OFF)
                 self._widget.btn_ramen.setStyleSheet("""QPushButton {
-                    background-color: red;
+                    background-color: orange;
                     border-radius: 8px;
                     color: black;
                     }""")
@@ -171,7 +171,7 @@ class MyPlugin(Plugin):
 
             # Sets the button green ---- SHOULD IT THOUGH?????
             self._widget.btn_ramen.setStyleSheet("""QPushButton {
-                    background-color: red;
+                    background-color: orange;
                     border-radius: 8px;
                     color: black;
                     }""")
@@ -194,7 +194,7 @@ class MyPlugin(Plugin):
             else:
                 self.pubLights.publish('bluetooth', OFF)
                 self._widget.btn_bluetooth.setStyleSheet("""QPushButton {
-                    background-color: red;
+                    background-color: orange;
                     border-radius: 8px;
                     color: black;
                     }""")
@@ -205,7 +205,7 @@ class MyPlugin(Plugin):
 
             # Sets the button green ---- SHOULD IT THOUGH?????
             self._widget.btn_bluetooth.setStyleSheet("""QPushButton {
-                    background-color: red;
+                    background-color: orange;
                     border-radius: 8px;
                     color: black;
                     }""")
@@ -246,14 +246,14 @@ class MyPlugin(Plugin):
         elif status == 1:
             line.setText(str(status))
             line.setStyleSheet("""QLineEdit {
-            background-color: red;
+            background-color: orange;
             color: black;
             }""")
 
         elif status == 2:
             line.setText(str(status))
             line.setStyleSheet("""QLineEdit {
-            background-color: orange;
+            background-color: yellow;
             color: black;
             }""")
 
