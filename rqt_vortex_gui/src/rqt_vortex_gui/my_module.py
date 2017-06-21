@@ -1,3 +1,5 @@
+# -*- coding: latin-1 -*-
+
 import os
 import rospkg
 import rospy
@@ -307,7 +309,7 @@ class MyPlugin(Plugin):
 
     def callback_compass(self, _orientation):
         orientation = int(_orientation.vector.z)
-        self._widget.line_compass.setText(str(orientation))
+        self._widget.line_compass.setText(str(orientation) + '°')
 
         if (orientation >= 30) and (orientation <= 330):
             self._widget.dial_1.show()
