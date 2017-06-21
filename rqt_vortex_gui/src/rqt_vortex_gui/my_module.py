@@ -143,8 +143,7 @@ class MyPlugin(Plugin):
         depth_update = depth.pose.pose.position.z
         bar_update = (depth_update*10)+10
         self._widget.verticalSliderDepth.setValue(bar_update)
-
-        self._widget.lineEditDepth.setText(str(depth_update))
+        self._widget.lineEditDepth.setText(str("%.3f" % depth_update))
 
     def handle_ramen_clicked(self):
         try:
