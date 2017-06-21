@@ -311,6 +311,8 @@ class MyPlugin(Plugin):
         self._widget.line_compass.setText(str(orientation) + '°')
         self._widget.dial_1.show()
         self._widget.dial_1.setValue(orientation)
+        while orientation > 180:
+            orientation -= 360
         if -150 <= orientation <= 150:
             self._widget.line_compass.setStyleSheet("""QLineEdit {background-color:white; color: black}""")
         else:
