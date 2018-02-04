@@ -1,4 +1,2 @@
 # rov-gui
-The GUI for Vortex NTNU's ROVs. The GUI is made as plugins to ROS rqt. Each plugin has a readme inside.
-
-## Preferred workflow
+GUI for Vortex NTNU's 2018 ROV. The GUI is made with [Kivy](https://kivy.org/ "Kivy: Cross-platform Python Framework for NUI Development")
