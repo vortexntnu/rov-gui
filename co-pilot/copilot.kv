@@ -1,0 +1,39 @@
+CoPilotRoot:
+
+<CoPilotRoot>:
+    Tabs:
+
+<Tabs>:
+    do_default_tab: False
+
+    TabbedPanelItem:
+        text: 'General'
+        BoxLayout:
+            Label:
+                text: root.receive
+            BoxLayout:
+                orientation: 'vertical'
+                BoxLayout:
+                    orientation: 'vertical'
+                    Label:
+                        text: '1. Det var...'
+                    Label:
+                        text: '1. Det var...'
+                    Label:
+                        text: '1. Det var...'
+                BoxLayout:
+                    Label:
+                        text: '2. ...en gang'
+    TabbedPanelItem:
+        text: 'tab2'
+        BoxLayout:
+            Label:
+                text: 'Second tab content area'
+            Button:
+                text: 'Button that does nothing'
+    TabbedPanelItem:
+        text: 'tab3'
+        RstDocument:
+            text:
+                '\n'.join(("Hello world", "-----------",
+                "You are in the third tab."))
