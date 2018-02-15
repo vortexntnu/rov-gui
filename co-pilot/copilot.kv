@@ -3,14 +3,28 @@ CoPilotRoot:
 <CoPilotRoot>:
     Tabs:
 
+<HealthLabel>:
+    text: 'Label'
+    icon: 'error.png'
+    size_hint: (None, None)
+    size: ('100dp', '30dp')
+    Image:
+        source: root.icon
+        size: ('30dp', '30dp')
+    Button:
+        text: root.text
+        font_size: '20dp'
+        on_release: root.ping("klikk")
+
 <Tabs>:
     do_default_tab: False
 
     TabbedPanelItem:
         text: 'General'
         BoxLayout:
-            Label:
-                text: root.receive
+            BoxLayout:
+                Label:
+                    text: 'Venstre'
             BoxLayout:
                 orientation: 'vertical'
                 BoxLayout:
@@ -22,8 +36,12 @@ CoPilotRoot:
                     Label:
                         text: '1. Det var...'
                 BoxLayout:
-                    Label:
-                        text: '2. ...en gang'
+                    orientation: 'vertical'
+                    HealthLabel:
+                        text: 'IMU'
+                    Widget:
+
+
     TabbedPanelItem:
         text: 'tab2'
         BoxLayout:
