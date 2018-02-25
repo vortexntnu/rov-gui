@@ -1,12 +1,12 @@
 {
-  "name": "basic-electron-react-boilerplate",
-  "version": "0.7.0",
-  "description": "Minimal and modern react+electron+webpack boilerplate",
-  "author": "Phillip Barbiero",
-  "homepage": "https://github.com/pbarbiero/basic-electron-react-boilerplate",
+  "name": "rov-gui",
+  "version": "0.1.0",
+  "description": "ROV-GUI for Vortex 2018",
+  "author": "Erik Dymbe",
+  "homepage": "https://github.com/vortexntnu/rov-gui",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pbarbiero/basic-electron-react-boilerplate.git"
+    "url": "https://github.com/vortexntnu/rov-gui"
   },
   "license": "MIT",
   "main": "main.js",
