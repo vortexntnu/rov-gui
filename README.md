@@ -1,6 +1,10 @@
 # Vortex 2018 ROV-GUI
 GUI for Vortex NTNU's 2018 ROV. The GUI is made with Electron and React.
 
+### Configure for ROS
+* `roscore`
+* `roslaunch rosbridge_server rosbridge_websocket.launch`
+
 ### To get started:
 * Run `npm install`
 
