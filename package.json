@@ -9,33 +9,25 @@
     "url": "https://github.com/vortexntnu/rov-gui"
   },
   "license": "MIT",
-  "main": "main.js",
-  "scripts": {
-    "prod": "webpack --config webpack.build.config.js && electron --noDevServer .",
-    "dev": "webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js",
-    "build": "webpack --config webpack.build.config.js",
-    "package": "webpack --config webpack.build.config.js",
-    "postpackage": "electron-packager ./ --out=./builds"
+  "main": "src/electron-starter.js",
+  "electron-dev": "ELECTRON_START_URL=http://localhost:3000 electron .",
+  "homepage": "./",
+  "dependencies": {
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-scripts": "1.1.1",
+    "roslib": "^0.20.0"
   },
   "devDependencies": {
-    "babel-core": "^6.24.1",
-    "babel-loader": "^7.1.2",
-    "babel-preset-react": "^6.24.1",
-    "babili-webpack-plugin": "^0.1.2",
-    "css-loader": "^0.28.1",
-    "electron": "^1.7.8",
-    "electron-packager": "^9.1.0",
-    "extract-text-webpack-plugin": "^3.0.1",
-    "file-loader": "^1.1.5",
-    "html-webpack-plugin": "^2.28.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "style-loader": "^0.19.0",
-    "webpack": "^3.6.0",
-    "webpack-dev-server": "^2.4.5"
+    "electron": "^1.8.2",
+    "foreman": "^2.0.0"
   },
-  "dependencies": {
-    "semantic-ui-css": "^2.3.0",
-    "semantic-ui-react": "^0.78.3"
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "electron": "electron .",
+    "dev" : "nf start -p 3000"
   }
 }
