@@ -18,10 +18,13 @@
   "main": "src/electron-starter.js",
   "electron-dev": "ELECTRON_START_URL=http://localhost:3000 electron .",
   "dependencies": {
+    "eventemitter2": "^5.0.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts": "1.1.1",
-    "roslib": "^0.20.0"
+    "roslib": "^0.20.0",
+    "semantic-ui-css": "^2.3.0",
+    "semantic-ui-react": "^0.78.3"
   },
   "devDependencies": {
     "electron": "^1.8.2",
@@ -31,7 +34,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "dist": "npm run build && electron-packager . RovGui --out=dist/linux --platform=linux --arch=x64",
+    "dist": "npm run build && electron-packager . RovGui --out=dist/linux --platform=linux --arch=x64 --overwrite",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "electron": "electron .",
