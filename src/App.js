@@ -3,7 +3,7 @@ import './App.css';
 import ROSLIB from 'roslib';
 import RosError from './components/RosError';
 import {Tab} from 'semantic-ui-react'
-import General from './components/general/GeneralTab'
+import General from './components/generalTab/GeneralTab'
 
 const panes = [
     {menuItem: 'General', render: () => <Tab.Pane><General ros={this.ros}/></Tab.Pane>},
@@ -37,6 +37,7 @@ class App extends Component {
     }
 
     componentWillMount() {
+        /*
         this.ros.on('connection', () => {
             console.log('Connected to websocket server.');
             this.setState({"rosIsConnected": true});
@@ -51,7 +52,7 @@ class App extends Component {
             this.setState({"rosIsConnected": false});
         });
 
-
+        */
     }
 
     render() {
