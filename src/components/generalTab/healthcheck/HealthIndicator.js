@@ -30,6 +30,10 @@ class HealthIndicator extends React.Component {
         });
     }
 
+    componentWillUnmount() {
+        clearTimeout(this.timeout);
+    }
+
     currentState = () => this.state.connected
         ? <span className='connected'>Connected</span>
         : <span className='not-connected'>Not connected</span>;
