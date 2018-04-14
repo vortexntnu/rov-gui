@@ -1,29 +1,9 @@
 import React from 'react';
+import {Grid} from 'semantic-ui-react';
 import HealthCheck from './healthcheck/HealthCheck';
-import {Grid} from 'semantic-ui-react'
-import ROSLIB from 'roslib'
+import RosGraph from './graph/RosGraph'
 
 class General extends React.Component {
-    constructor(props) {
-        super(props);
-        let ros = new ROSLIB.Ros({
-            'url': 'ws://localhost:9090'
-        });
-
-        this.topic = new ROSLIB.Topic({
-            ros: ros,
-            name: '/test1',
-            messageType: 'std_msgs/String'
-        });
-
-        console.log(this.topic);
-
-        this.topic.subscribe((message) => {
-            console.log(message);
-        });
-
-    }
-
     render() {
         return (
             <Grid id="general-tab" celled>
@@ -37,10 +17,10 @@ class General extends React.Component {
                 </Grid.Row>
                 <Grid.Row columns={2}>
                     <Grid.Column>
-                        <p>HALLA</p>
+                        {/*<RosGraph topicName="/rosgraph"/>*/}
                     </Grid.Column>
                     <Grid.Column>
-                        <HealthCheck ros={this.props.ros}/>
+                        <HealthCheck/>
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
