@@ -19,7 +19,8 @@ class HealthIndicator extends React.Component {
     }
 
     componentWillMount() {
-        this.topic.subscribe((message) => {
+        this.topic.subscribe((msg) => {
+            console.log(msg);
             this.setState({
                 "connected": true,
             });
@@ -31,6 +32,7 @@ class HealthIndicator extends React.Component {
     }
 
     componentWillUnmount() {
+        this.topic.unsubscribe();
         clearTimeout(this.timeout);
     }
 
