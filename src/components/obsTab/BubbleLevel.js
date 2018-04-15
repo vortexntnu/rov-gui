@@ -1,76 +1,90 @@
-import React from 'react';
-import './BubbleLevel.css';
-import {GoogleCharts} from 'google-charts';
-import Rectangle from 'react-rectangle';
+import React, {Component} from 'react';
+import './BubbleLevel.css'
+import Measure from 'react-measure';
+import {XYPlot, XAxis, YAxis, CircularGridLines, MarkSeries} from 'react-vis';
+import ROSLIB from 'roslib';
 
-class General extends React.Component {
+class BubbleLevel extends Component {
+    constructor() {
+        super();
+        this.state = {
+            dimensions: {
+                width: -1,
+                height: -1,
+            },
+            angles: {
+                x: Number.MAX_SAFE_INTEGER,
+                y: Number.MAX_SAFE_INTEGER,
+            }
+        };
 
-    componentWillMount() {
-        GoogleCharts.load(this.chartSetup);
+        this.margin = {
+            top: 10,
+            right: 10,
+            bottom: 10,
+            left: 10,
+        };
+    }
+
+    componentDidMount() {
+        this.ros = new ROSLIB.Ros({
+            'url': 'ws://localhost:9090'
+        });
+
+        this.anglesTopic = new ROSLIB.Topic({
+            ros: this.ros,
+            name: 'obs/angles',
+            messageType: 'geometry_msgs/Point'
+        });
+
+        this.anglesTopic.subscribe((msg) => {
+            console.log(msg);
+            this.setState({
+                angles: {
+                    x: msg.x,
+                    y: msg.y,
+                }
+            });
+        });
     }
 
     componentWillUnmount() {
-        window.removeEventListener('resize', this.drawChart);
+        this.anglesTopic.unsubscribe();
     }
 
-    chartSetup = () => {
-        this.data = new GoogleCharts.api.visualization.DataTable();
-        this.data.addColumn('number');
-        this.data.addColumn('number');
-        const radius = 5;
-        for (let i = 0; i < 6.28; i += 0.1) {
-            this.data.addRow([radius * Math.cos(i), radius * Math.sin(i)]);
-        }
-        this.drawChart();
-        window.addEventListener('resize', this.drawChart)
-    };
-
-    drawChart = () => {
-        const min = -5;
-        const max = 5;
-
-        const range = (min, max) => {
-            let array = [];
-            for (let i = min; i <= max; i++) {
-                array.push(i);
-            }
-            return array;
-        };
-
-        const options = {
-            legend: 'none',
-            colors: ['#087037'],
-            pointSize: 16,
-            chartArea: {
-                width: '90%',
-                height: '90%',
-            },
-            hAxis: {
-                viewWindow: {
-                    min: min,
-                    max: max,
-                },
-                ticks: range(min, max),
-            },
-            vAxis: {
-                viewWindow: {
-                    min: min,
-                    max: max,
-                },
-                ticks: range(min, max),
-            }
-        };
-
-        let chart = new GoogleCharts.api.visualization.ScatterChart(document.getElementById('chart'));
-        chart.draw(this.data, options);
-
-    };
-
     render() {
+        const {width} = this.state.dimensions;
+
         return (
-            <Rectangle id="bubble-level" aspectRatio={[1,1]}><div id="chart"/></Rectangle>
+            <Measure
+                bounds
+                onResize={contentRect => this.setState({dimensions: contentRect.bounds})}>
+                {({measureRef}) => {
+                    return (
+                        <div
+                            id="bubble-level"
+                            ref={measureRef}>
+                            <XYPlot
+                                margin={this.margin}
+                                xDomain={[-3, 3]}
+                                yDomain={[-3, 3]}
+                                width={width}
+                                height={width}>
+                                <CircularGridLines/>
+                                <XAxis top={(width) / 2}/>
+                                <YAxis left={(width - this.margin.left - this.margin.right) / 2}/>
+                                <MarkSeries
+                                    strokeWidth={2}
+                                    sizeRange={[5, 15]}
+                                    data={[this.state.angles]}
+                                />
+                            </XYPlot>
+                        </div>
+                    )
+                }}
+            </Measure>
         )
     }
 }
 
-export default General;
+export default BubbleLevel;

@@ -8,17 +8,19 @@ class HealthIndicator extends React.Component {
         this.state = {
             'connected': false
         };
+    }
+
+    componentDidMount() {
         this.ros = new ROSLIB.Ros({
             'url': 'ws://localhost:9090'
         });
+
         this.topic = new ROSLIB.Topic({
             ros: this.ros,
             name: this.props.topicName,
             messageType: 'std_msgs/String'
         });
-    }
 
-    componentWillMount() {
         this.topic.subscribe((msg) => {
             console.log(msg);
             this.setState({

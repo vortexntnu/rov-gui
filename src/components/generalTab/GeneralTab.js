@@ -1,7 +1,6 @@
 import React from 'react';
 import {Grid} from 'semantic-ui-react';
 import HealthCheck from './healthcheck/HealthCheck';
-import RosGraph from './graph/RosGraph'
 
 class General extends React.Component {
     render() {
