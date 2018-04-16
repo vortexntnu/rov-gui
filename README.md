@@ -12,4 +12,5 @@ This will start the Electron-app in development mode.
 ## Production
 Run `npm run dist`.
 This will produce an Linux-x64 executable called RovGui inside dist/linux/RovGui-linux-x64/
+
 If another platform/arch is required this can be configured in package.json.
