@@ -4,3 +4,11 @@ html, body, #root {
     padding: 0;
     font-family: sans-serif;
 }
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

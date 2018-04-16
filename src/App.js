@@ -15,26 +15,33 @@ const panes = [
 class App extends Component {
     constructor(props) {
         super(props);
+        this.ros = null;
         this.state = {
             "rosIsConnected": true,
         };
     }
 
     componentDidMount() {
-        this.ros = new ROSLIB.Ros({
-            url: 'ws://localhost:9090',
-        });
-
-        this.ros.on('connection', () => {
-            console.log('Connected to websocket server.');
-            this.setState({"rosIsConnected": true});
-        });
-
-        this.ros.on('close', () => {
-            console.log('Connection to websocket server closed.');
-            this.setState({"rosIsConnected": false});
-        });
+        this.connectToRos()
     }
+
+    connectToRos = () => {
+        const ros = new ROSLIB.Ros({
+            'url': 'ws://localhost:9090',
+        });
+
+        ros.on('connection', () => {
+            clearTimeout(this.reconnectionTimer);
+            console.log('Connected to websocket server.');
+            this.setState({'rosIsConnected': true});
+        });
+
+        ros.on('close', () => {
+            console.log('Connection to websocket server closed.');
+            this.setState({'rosIsConnected': false});
+            this.reconnectionTimer = setTimeout(() => this.connectToRos(), 500);
+        });
+    };
 
     render() {
         return (
