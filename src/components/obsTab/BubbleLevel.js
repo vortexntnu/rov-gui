@@ -13,8 +13,8 @@ class BubbleLevel extends Component {
                 height: -1,
             },
             angles: {
-                x: Number.MAX_SAFE_INTEGER,
-                y: Number.MAX_SAFE_INTEGER,
+                x: 0,
+                y: 0,
             }
         };
 
@@ -46,10 +46,19 @@ class BubbleLevel extends Component {
                 }
             });
         });
+
+        this.spammer = setInterval(() => this.anglesTopic.publish(this.newPoint()), 100);
+    }
+
+    newPoint() {
+        const x = (this.state.angles.x + Math.random() * 0.4 - 0.2) / 1.01;
+        const y = (this.state.angles.y + Math.random() * 0.4 - 0.2) / 1.01;
+        return {x: x, y: y};
     }
 
     componentWillUnmount() {
         this.anglesTopic.unsubscribe();
+        clearInterval(this.spammer);
     }
 
     render() {
