@@ -10,7 +10,7 @@ install:
   - Xvfb :99 -screen 0 1920x1080x24 > /dev/null 2>&1 &
   - npm install
 script:
-  - "mkdir -p screenshots/$(TRAVIS_BRANCH) && touch screenshots/$(TRAVIS_BRANCH)/test.jpg"
+  - "mkdir -p screenshots/$TRAVIS_BRANCH && touch screenshots/$TRAVIS_BRANCH/test.jpg"
 deploy:
   provider: gcs
   access_key_id: GOOG2AFKOBKTDJJ7TWSU
@@ -19,6 +19,7 @@ deploy:
   bucket: rov-gui
   local-dir: screenshots
   skip_cleanup: true
+  acl: public-read
   on:
     repo: vortexntnu/rov-gui
     all_branches: true
