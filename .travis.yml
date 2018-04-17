@@ -1,0 +1,25 @@
+language: node_js
+node_js:
+  - "node"
+addons:
+  apt:
+    packages:
+    - xvfb
+install:
+  - export DISPLAY=':99.0'
+  - Xvfb :99 -screen 0 1920x1080x24 > /dev/null 2>&1 &
+  - npm install
+script:
+  - "mkdir -p deploy/$TRAVIS_BRANCH/screenshots && convert -size 800x800 xc:red deploy/$TRAVIS_BRANCH/screenshots/test.png"
+deploy:
+  provider: gcs
+  access_key_id: GOOG2AFKOBKTDJJ7TWSU
+  secret_access_key:
+    secure: T/NvGLTM05ItQQanNZBIz2CoLMtam0l3D+94Tpw+LMc/KUx5rZuqjcA7mAATYn/e8lmD1VMEMriqY3TcCPpVzay/mic3dvWCI7D5WRn7fUcDyCfh3wyCBTgYDEVsprt81ZLx7mCUdMHDHupJBkZxBHBAexFwSFmgAHswdlcHmUivlk/g0vqO8Qk+e+srhyD4jirHNdFk06yxUOhiktx0+Z+FEvqXI8ju3Rta0FeYeyxhIhKLzc6OZE0wCRGdELanu9LI3bxREAgxQr9TBZ/g8jn9P02qpZukN3IIi1ooDhD2yhFFJMgskBoSLgpL2mL2eFPg4we+TaJKLIJoCqZMqDaVAVcI6H4VGS0tlWq3tfaB9LMgNK1JmBF/9XaEf6vgMIUuDBuuPqoOF8qgi2wBEblAB3CCz7EigUFvrQHoeJ1aOetRRmTbFE9tZt4osk5IzVQ1LQEiCoDs/n2BeUAWGPEOBleJiM9RipdiyOdOsVQhLzaqlgzZSsUuK/WSySH2FO0L4nGZb3gQJ6M23+zBJ4dRBoCuN53JMqb9wIX5U764wvRW7tqBqLJz5+rgxZfvbhI4KZY0z8HJFkBdY/tlAjH+5Nu4SSCTQageh32vU9OiO/mV0eNwJ1Fcjov2BZNEPYaW7xq55/b22WTPuAA1iTWJ0Esi5kj6IwaR76TZaac=
+  bucket: rov-gui
+  local-dir: deploy
+  skip_cleanup: true
+  acl: public-read
+  on:
+    repo: vortexntnu/rov-gui
+    all_branches: true
