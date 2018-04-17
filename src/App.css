@@ -1,0 +1,15 @@
+#App {
+    display: flex;
+    height: 100%;
+}
+
+#Tab {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+#Tab>.tab {
+    display: flex;
+    flex: 1;
+}
