@@ -1,23 +1,26 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './ObsTab.css';
 import {Grid} from 'semantic-ui-react';
 import BubbleLevel from './BubbleLevel';
+import Seismograph from './Seismograph';
+import DataTable from './DataTable';
 import ROSLIB from "roslib";
 
-class General extends React.Component {
+class General extends Component {
     constructor() {
         super();
         this.state = {
             angles: {
                 x: 0,
                 y: 0,
-            }
+            },
+            data: []
         };
     }
 
     componentDidMount() {
         this.ros = new ROSLIB.Ros({
-            'url': 'ws://localhost:9090'
+            url: 'ws://localhost:9090'
         });
 
         this.anglesTopic = new ROSLIB.Topic({
@@ -27,7 +30,6 @@ class General extends React.Component {
         });
 
         this.anglesTopic.subscribe((msg) => {
-            console.log(msg);
             this.setState({
                 angles: {
                     x: msg.x,
@@ -36,22 +38,47 @@ class General extends React.Component {
             });
         });
 
-        // TODO Remove this, just a demo
-        this.spammer = setInterval(() => this.anglesTopic.publish(this.newPoint()), 100);
+        this.dataTopic = new ROSLIB.Topic({
+            ros: this.ros,
+            name: 'obs/data',
+            messageType: 'std_msgs/Float64MultiArray'
+        });
+
+        this.dataTopic.subscribe((msg) => {
+            const data = msg.data.map((float, index) => ({x: index+1, y: float}));
+            this.setState({
+                data: data
+            })
+        });
+
+        // TODO Remove this, just for demo
+        this.anglesSpammer = setInterval(() => this.anglesTopic.publish(this.newPoint()), 100);
+        this.dataSpammer = setInterval(() => this.dataTopic.publish(this.newList()), 10000);
     }
 
-    // TODO Remove this, just a demo
+    // TODO Remove this, just for demo
     newPoint() {
         const x = (this.state.angles.x + Math.random() * 0.4 - 0.2) / 1.01;
         const y = (this.state.angles.y + Math.random() * 0.4 - 0.2) / 1.01;
         return {x: x, y: y};
     }
 
+    // TODO Remove this, just for demo
+    newList() {
+        const floats = [];
+        for(let i = 0; i < 16; i++) {
+            floats.push(Math.random()*20 - 10);
+        }
+        return {data: floats}
+    }
+
     componentWillUnmount() {
         this.anglesTopic.unsubscribe();
+        this.dataTopic.unsubscribe();
 
-        // TODO Remove this, just a demo
-        clearInterval(this.spammer);
+        // TODO Remove this, just for demo
+        clearInterval(this.anglesSpammer);
+        clearInterval(this.dataSpammer);
     }
 
     render() {
@@ -65,7 +92,8 @@ class General extends React.Component {
                         <div className="angle-info">yAngle = <div>{this.state.angles.y.toFixed(2)}</div></div>
                     </Grid.Column>
                     <Grid.Column width={10}>
-                        <p>HALLA</p>
+                        <Seismograph data={this.state.data}/>
+                        <DataTable data={this.state.data}/>
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
