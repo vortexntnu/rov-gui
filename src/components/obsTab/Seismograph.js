@@ -11,13 +11,6 @@ class Seismograph extends Component {
                 height: -1,
             },
         };
-
-        this.margin = {
-            top: 10,
-            right: 10,
-            bottom: 10,
-            left: 10,
-        };
     }
 
     render() {
