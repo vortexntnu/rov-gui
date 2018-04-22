@@ -2,11 +2,10 @@ import React, {Component} from 'react';
 import './ObsTab.css';
 import {Grid} from 'semantic-ui-react';
 import BubbleLevel from './BubbleLevel';
-import Seismograph from './Seismograph';
-import DataTable from './DataTable';
+import DataGrid from './DataGrid';
 import ROSLIB from "roslib";
 
-class General extends Component {
+class ObsTab extends Component {
     constructor() {
         super();
         this.state = {
@@ -53,7 +52,7 @@ class General extends Component {
 
         // TODO Remove this, just for demo
         this.anglesSpammer = setInterval(() => this.anglesTopic.publish(this.newPoint()), 100);
-        this.dataSpammer = setInterval(() => this.dataTopic.publish(this.newList()), 10000);
+        this.dataSpammer = setInterval(() => this.dataTopic.publish(this.newList()), 5000);
     }
 
     // TODO Remove this, just for demo
@@ -82,23 +81,22 @@ class General extends Component {
     }
 
     render() {
+        const angles = this.state.angles;
+        const data = this.state.data;
         return (
             <Grid id="obs-tab" celled>
                 <Grid.Row columns={2}>
                     <Grid.Column width={6}>
                         <h1>OBS-level</h1>
-                        <BubbleLevel angles={this.state.angles}/>
-                        <div className="angle-info">xAngle = <div>{this.state.angles.x.toFixed(2)}</div></div>
-                        <div className="angle-info">yAngle = <div>{this.state.angles.y.toFixed(2)}</div></div>
+                        <BubbleLevel angles={angles}/>
+                        <div className="angle-info">xAngle = <div>{angles.x.toFixed(2)}</div></div>
+                        <div className="angle-info">yAngle = <div>{angles.y.toFixed(2)}</div></div>
                     </Grid.Column>
-                    <Grid.Column width={10}>
-                        <Seismograph data={this.state.data}/>
-                        <DataTable data={this.state.data}/>
-                    </Grid.Column>
+                    <DataGrid width={10} data={data}/>
                 </Grid.Row>
             </Grid>
         )
     }
 }
 
-export default General;
+export default ObsTab;
