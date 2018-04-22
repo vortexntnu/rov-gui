@@ -9,7 +9,6 @@ import ObsTab from './components/obsTab/ObsTab';
 const panes = [
     {menuItem: 'General', render: () => <Tab.Pane><GeneralTab/></Tab.Pane>},
     {menuItem: 'OBS', render: () => <Tab.Pane><ObsTab/></Tab.Pane>},
-    {menuItem: 'Tab 3', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane>},
 ];
 
 class App extends Component {
