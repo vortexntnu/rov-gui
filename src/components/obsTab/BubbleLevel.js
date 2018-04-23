@@ -32,8 +32,6 @@ class BubbleLevel extends Component {
             angles = [angles];
         }
 
-        console.log(angles);
-
         return (
             <Measure
                 bounds
