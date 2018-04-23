@@ -9,12 +9,11 @@
     width: 50px;
 }
 
-#angle-labels {
+.data-label {
     font-size: 32px;
     line-height: 32px;
-}
-
-#angle-labels > tr > td:nth-child(2){
-    width: 150px;
-    text-align: right;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    white-space: nowrap;
 }

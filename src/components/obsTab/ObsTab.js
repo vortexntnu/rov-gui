@@ -13,7 +13,8 @@ class ObsTab extends Component {
                 x: null,
                 y: null,
             },
-            data: []
+            data: [],
+            voltage: null,
         };
     }
 
@@ -28,32 +29,45 @@ class ObsTab extends Component {
             messageType: 'geometry_msgs/Point'
         });
 
-        this.anglesTopic.subscribe((msg) => {
-            this.setState({
-                angles: {
-                    x: msg.x,
-                    y: msg.y,
-                }
-            });
-        });
-
         this.dataTopic = new ROSLIB.Topic({
             ros: this.ros,
             name: 'obs/data',
             messageType: 'std_msgs/Float64MultiArray'
         });
 
-        this.dataTopic.subscribe((msg) => {
-            const data = msg.data.map((float, index) => ({x: index+1, y: float}));
-            this.setState({
-                data: data
-            })
+        this.voltageTopic = new ROSLIB.Topic({
+            ros: this.ros,
+            name: 'obs/voltage',
+            messageType: 'std_msgs/Float64'
         });
 
+        this.anglesTopic.subscribe(this.anglesHandler);
+        this.dataTopic.subscribe(this.dataHandler);
+        this.voltageTopic.subscribe(this.voltageHandler);
+
         // TODO Remove this, just for demo
-        this.anglesSpammer = setInterval(() => this.anglesTopic.publish(this.newPoint()), 10000);
+        this.anglesSpammer = setInterval(() => this.anglesTopic.publish(this.newPoint()), 100);
         this.dataSpammer = setInterval(() => this.dataTopic.publish(ObsTab.newList()), 5000);
+        this.voltageSpammer = setInterval(() => this.voltageTopic.publish({data: Math.random() * 5}), 5000);
     }
+
+    anglesHandler = (msg) => {
+        this.setState({
+            angles: {
+                x: msg.x,
+                y: msg.y,
+            }
+        });
+    };
+
+    dataHandler = (msg) => {
+        const data = msg.data.map((float, index) => ({x: index+1, y: float}));
+        this.setState({data: data});
+    };
+
+    voltageHandler = (msg) => {
+        this.setState({voltage: msg.data});
+    };
 
     // TODO Remove this, just for demo
     newPoint() {
@@ -74,39 +88,50 @@ class ObsTab extends Component {
     componentWillUnmount() {
         this.anglesTopic.unsubscribe();
         this.dataTopic.unsubscribe();
+        this.voltageTopic.unsubscribe();
 
         // TODO Remove this, just for demo
         clearInterval(this.anglesSpammer);
         clearInterval(this.dataSpammer);
+        clearInterval(this.voltageSpammer);
     }
 
-    static safeGetToFixed(value) {
+    static safeGetAngle(value) {
         if(value == null) {
             return "No data"
         } else {
-            return value.toFixed(2)
+            return value.toFixed(2) + String.fromCharCode(176);
+        }
+    }
+
+    static safeGetVoltage(value) {
+        if(value == null) {
+            return "No data"
+        } else {
+            return value.toFixed(3).toString() + " V"
         }
     }
 
     render() {
-        const angles = this.state.angles;
-        const data = this.state.data;
+        const {angles, data, voltage} = this.state;
         return (
             <Grid id="obs-tab" celled>
                 <Grid.Row columns={2}>
                     <Grid.Column width={6}>
                         <h1>OBS-level</h1>
                         <BubbleLevel angles={angles}/>
-                        <table id="angle-labels">
-                            <tr>
-                                <td>xAngle = </td>
-                                <td>{ObsTab.safeGetToFixed(angles.x)}</td>
-                            </tr>
-                            <tr>
-                                <td>yAngle = </td>
-                                <td>{ObsTab.safeGetToFixed(angles.y)}</td>
-                            </tr>
-                        </table>
+                        <div className="data-label">
+                            <div>xAngle = </div>
+                            <div>{ObsTab.safeGetAngle(angles.x)}</div>
+                        </div>
+                        <div className="data-label">
+                            <div>yAngle = </div>
+                            <div>{ObsTab.safeGetAngle(angles.y)}</div>
+                        </div>
+                        <div className="data-label">
+                            <div>Voltage = </div>
+                            <div>{ObsTab.safeGetVoltage(voltage, 3)}</div>
+                        </div>
                     </Grid.Column>
                     <DataGrid width={10} data={data}/>
                 </Grid.Row>
