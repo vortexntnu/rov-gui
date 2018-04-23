@@ -8,3 +8,13 @@
     text-align: right;
     width: 50px;
 }
+
+#angle-labels {
+    font-size: 32px;
+    line-height: 32px;
+}
+
+#angle-labels > tr > td:nth-child(2){
+    width: 150px;
+    text-align: right;
+}

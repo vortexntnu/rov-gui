@@ -9,7 +9,7 @@ class BubbleLevel extends Component {
         this.state = {
             dimensions: {
                 width: -1,
-                height: -1,
+                height: -1
             },
         };
 
@@ -22,7 +22,17 @@ class BubbleLevel extends Component {
     }
 
     render() {
-        const {width} = this.state.dimensions;
+        const width = this.state.dimensions.width;
+        let angles = this.props.angles;
+
+        if(angles.x == null || angles.y == null) {
+            // React-vis will not render without data, so a dummy point is needed
+            angles = [{x: Number.MAX_SAFE_INTEGER, y: Number.MAX_SAFE_INTEGER}]
+        } else {
+            angles = [angles];
+        }
+
+        console.log(angles);
 
         return (
             <Measure
@@ -45,7 +55,7 @@ class BubbleLevel extends Component {
                                 <MarkSeries
                                     strokeWidth={2}
                                     sizeRange={[5, 15]}
-                                    data={[this.props.angles]}
+                                    data={angles}
                                 />
                             </XYPlot>
                         </div>

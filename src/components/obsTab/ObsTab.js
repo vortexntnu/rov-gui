@@ -10,8 +10,8 @@ class ObsTab extends Component {
         super();
         this.state = {
             angles: {
-                x: 0,
-                y: 0,
+                x: null,
+                y: null,
             },
             data: []
         };
@@ -51,8 +51,8 @@ class ObsTab extends Component {
         });
 
         // TODO Remove this, just for demo
-        this.anglesSpammer = setInterval(() => this.anglesTopic.publish(this.newPoint()), 100);
-        this.dataSpammer = setInterval(() => this.dataTopic.publish(this.newList()), 5000);
+        this.anglesSpammer = setInterval(() => this.anglesTopic.publish(this.newPoint()), 10000);
+        this.dataSpammer = setInterval(() => this.dataTopic.publish(ObsTab.newList()), 5000);
     }
 
     // TODO Remove this, just for demo
@@ -63,7 +63,7 @@ class ObsTab extends Component {
     }
 
     // TODO Remove this, just for demo
-    newList() {
+    static newList() {
         const floats = [];
         for(let i = 0; i < 16; i++) {
             floats.push(Math.random()*20 - 10);
@@ -80,6 +80,14 @@ class ObsTab extends Component {
         clearInterval(this.dataSpammer);
     }
 
+    static safeGetToFixed(value) {
+        if(value == null) {
+            return "No data"
+        } else {
+            return value.toFixed(2)
+        }
+    }
+
     render() {
         const angles = this.state.angles;
         const data = this.state.data;
@@ -89,8 +97,16 @@ class ObsTab extends Component {
                     <Grid.Column width={6}>
                         <h1>OBS-level</h1>
                         <BubbleLevel angles={angles}/>
-                        <div className="angle-info">xAngle = <div>{angles.x.toFixed(2)}</div></div>
-                        <div className="angle-info">yAngle = <div>{angles.y.toFixed(2)}</div></div>
+                        <table id="angle-labels">
+                            <tr>
+                                <td>xAngle = </td>
+                                <td>{ObsTab.safeGetToFixed(angles.x)}</td>
+                            </tr>
+                            <tr>
+                                <td>yAngle = </td>
+                                <td>{ObsTab.safeGetToFixed(angles.y)}</td>
+                            </tr>
+                        </table>
                     </Grid.Column>
                     <DataGrid width={10} data={data}/>
                 </Grid.Row>
