@@ -8,12 +8,19 @@ import ROSLIB from "roslib";
 class ObsTab extends Component {
     constructor() {
         super();
+
+        let data = [];
+
+        if(window.obsData !== undefined) {
+            data = window.obsData;
+        }
+
         this.state = {
             angles: {
                 x: null,
                 y: null,
             },
-            data: [],
+            data: data,
             voltage: null,
         };
     }
@@ -62,6 +69,7 @@ class ObsTab extends Component {
 
     dataHandler = (msg) => {
         const data = msg.data.map((float, index) => ({x: index+1, y: float}));
+        window.obsData = data;
         this.setState({data: data});
     };
 
