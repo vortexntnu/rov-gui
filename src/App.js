@@ -5,19 +5,18 @@ import RosError from './components/RosError';
 import {Tab} from 'semantic-ui-react';
 import GeneralTab from './components/generalTab/GeneralTab';
 import ObsTab from './components/obsTab/ObsTab';
+import AircraftIdTab from './components/aircraftIdTab/AircraftIdTab';
 
 const panes = [
     {menuItem: 'General', render: () => <Tab.Pane><GeneralTab/></Tab.Pane>},
     {menuItem: 'OBS', render: () => <Tab.Pane><ObsTab/></Tab.Pane>},
+    {menuItem: 'Aircraft identification', render: () => <Tab.Pane><AircraftIdTab/></Tab.Pane>},
 ];
 
 class App extends Component {
     constructor(props) {
         super(props);
-        this.ros = null;
-        this.state = {
-            "rosIsConnected": true,
-        };
+        this.state = {"rosIsConnected": true};
     }
 
     componentDidMount() {
@@ -25,9 +24,7 @@ class App extends Component {
     }
 
     connectToRos = () => {
-        const ros = new ROSLIB.Ros({
-            'url': 'ws://localhost:9090',
-        });
+        const ros = new ROSLIB.Ros({'url': 'ws://localhost:9090'});
 
         ros.on('connection', () => {
             clearTimeout(this.reconnectionTimer);
