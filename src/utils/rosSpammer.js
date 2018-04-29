@@ -14,13 +14,13 @@ const anglesTopic = new ROSLIB.Topic({
 });
 
 const dataTopic = new ROSLIB.Topic({
-    ros: this.ros,
+    ros: ros,
     name: 'obs/data',
     messageType: 'std_msgs/Float64MultiArray'
 });
 
 const voltageTopic = new ROSLIB.Topic({
-    ros: this.ros,
+    ros: ros,
     name: 'obs/voltage',
     messageType: 'std_msgs/Float64'
 });
