@@ -3,7 +3,7 @@ import './ObsTab.css';
 import {Grid} from 'semantic-ui-react';
 import BubbleLevel from './BubbleLevel';
 import DataGrid from './DataGrid';
-import ROSLIB from "roslib";
+import ROSLIB from 'roslib';
 
 class ObsTab extends Component {
     constructor() {
