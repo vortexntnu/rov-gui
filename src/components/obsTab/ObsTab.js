@@ -26,9 +26,7 @@ class ObsTab extends Component {
     }
 
     componentDidMount() {
-        this.ros = new ROSLIB.Ros({
-            url: 'ws://localhost:9090'
-        });
+        this.ros = new ROSLIB.Ros({url: 'ws://localhost:9090'});
 
         this.anglesTopic = new ROSLIB.Topic({
             ros: this.ros,
@@ -51,11 +49,6 @@ class ObsTab extends Component {
         this.anglesTopic.subscribe(this.anglesHandler);
         this.dataTopic.subscribe(this.dataHandler);
         this.voltageTopic.subscribe(this.voltageHandler);
-
-        // TODO Remove this, just for demo
-        this.anglesSpammer = setInterval(() => this.anglesTopic.publish(this.newPoint()), 100);
-        this.dataSpammer = setInterval(() => this.dataTopic.publish(ObsTab.newList()), 5000);
-        this.voltageSpammer = setInterval(() => this.voltageTopic.publish({data: Math.random() * 5}), 5000);
     }
 
     anglesHandler = (msg) => {
@@ -77,31 +70,10 @@ class ObsTab extends Component {
         this.setState({voltage: msg.data});
     };
 
-    // TODO Remove this, just for demo
-    newPoint() {
-        const x = (this.state.angles.x + Math.random() * 0.4 - 0.2) / 1.01;
-        const y = (this.state.angles.y + Math.random() * 0.4 - 0.2) / 1.01;
-        return {x: x, y: y};
-    }
-
-    // TODO Remove this, just for demo
-    static newList() {
-        const floats = [];
-        for(let i = 0; i < 16; i++) {
-            floats.push(Math.random()*20 - 10);
-        }
-        return {data: floats}
-    }
-
     componentWillUnmount() {
         this.anglesTopic.unsubscribe();
         this.dataTopic.unsubscribe();
         this.voltageTopic.unsubscribe();
-
-        // TODO Remove this, just for demo
-        clearInterval(this.anglesSpammer);
-        clearInterval(this.dataSpammer);
-        clearInterval(this.voltageSpammer);
     }
 
     static safeGetAngle(value) {
