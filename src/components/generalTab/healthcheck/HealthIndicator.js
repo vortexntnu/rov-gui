@@ -22,7 +22,6 @@ class HealthIndicator extends React.Component {
         });
 
         this.topic.subscribe((msg) => {
-            console.log(msg);
             this.setState({
                 "connected": true,
             });
