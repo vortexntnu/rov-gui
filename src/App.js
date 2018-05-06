@@ -24,15 +24,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        const ros = new ROSLIB.Ros({'url': 'ws://localhost:9090'});
-        this.connectToRosbridge(ros);
-        const isRovAliveTopic = new ROSLIB.Topic({
-            ros: ros,
-            name: '/isAlive',
-            messageType: 'std_msgs/Empty'
-        });
-        this.refreshAliveTimeout();
-        isRovAliveTopic.subscribe(this.stillAlive);
+        this.connectToRosbridge();
     }
 
     refreshAliveTimeout = () => {
@@ -47,7 +39,9 @@ class App extends Component {
 
     die = () => this.setState({isConnectedToRov: false});
 
-    connectToRosbridge = (ros) => {
+    connectToRosbridge = () => {
+        const ros = new ROSLIB.Ros({url: 'ws://localhost:9090'});
+
         ros.on('connection', () => {
             clearTimeout(this.reconnectionTimer);
             console.log('Connected to websocket server.');
@@ -57,8 +51,16 @@ class App extends Component {
         ros.on('close', () => {
             console.log('Connection to websocket server closed.');
             this.setState({isConnectedToRosbridge: false});
-            this.reconnectionTimer = setTimeout(() => this.connectToRosbridge(ros), 500);
+            this.reconnectionTimer = setTimeout(() => this.connectToRosbridge(), 500);
         });
+
+        const isRovAliveTopic = new ROSLIB.Topic({
+            ros: ros,
+            name: '/is_alive',
+            messageType: 'std_msgs/Empty'
+        });
+        this.refreshAliveTimeout();
+        isRovAliveTopic.subscribe(this.stillAlive);
     };
 
     gui = () => {
