@@ -11,6 +11,11 @@ To start the GUI, run:
 
 This will start the Electron-app in development mode.
 
+### Connecting to ROS
+To be able to connect to ROS, a ROS-bridge-server has to be installed:
+
+Ubuntu: `sudo apt-get install ros-kinetic-rosbridge-suite`
+
 ## Production
 Run `npm run dist`.
 This will produce an Linux-x64 executable called __rov-gui__ inside dist/linux/rov-gui-linux-x64/

@@ -20,6 +20,7 @@ class HealthIndicator extends Component {
 
         this.topic.subscribe((msg) => {
             this.setState({connected: true});
+
             clearTimeout(this.timeout);
             this.timeout = setTimeout(() => this.setState({connected: false}), 500);
         });
