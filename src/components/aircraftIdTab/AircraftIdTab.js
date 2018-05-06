@@ -17,7 +17,7 @@ class AircraftIdTab extends Component {
     }
 
     componentDidMount() {
-        const ros = new ROSLIB.Ros({url: 'ws://localhost:9090'})
+        const ros = new ROSLIB.Ros({url: 'ws://localhost:9090'});
 
         this.typeTopic = new ROSLIB.Topic({
             ros: ros,

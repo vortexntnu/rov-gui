@@ -1,34 +1,28 @@
-import React from 'react';
+import React, {Component} from 'react';
 import ROSLIB from 'roslib';
 import './HealthIndicator.css'
 
-class HealthIndicator extends React.Component {
+class HealthIndicator extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            'connected': false
-        };
+        this.state = {connected: false};
     }
 
     componentDidMount() {
-        this.ros = new ROSLIB.Ros({
-            'url': 'ws://localhost:9090'
-        });
+        const ros = new ROSLIB.Ros({url: 'ws://localhost:9090'});
+        const topicName = '/general/healthcheck/' + this.props.item.toLowerCase();
 
         this.topic = new ROSLIB.Topic({
-            ros: this.ros,
-            name: this.props.topicName,
-            messageType: 'std_msgs/String'
+            ros: ros,
+            name: topicName,
+            messageType: 'std_msgs/Empty'
         });
 
         this.topic.subscribe((msg) => {
-            this.setState({
-                "connected": true,
-            });
+            this.setState({connected: true});
+
             clearTimeout(this.timeout);
-            this.timeout = setTimeout(() => this.setState({
-                "connected": false,
-            }), 400);
+            this.timeout = setTimeout(() => this.setState({connected: false}), 500);
         });
     }
 
@@ -44,7 +38,7 @@ class HealthIndicator extends React.Component {
     render() {
         return (
             <div id="healthCheck">
-                <span>{this.props.item}:</span>
+                <span>{this.props.item}: </span>
                 <span>{this.currentState()}</span>
             </div>
         )
