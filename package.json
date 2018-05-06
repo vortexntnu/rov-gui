@@ -40,6 +40,6 @@
     "eject": "react-scripts eject",
     "electron": "electron .",
     "dev": "nf start -p 3000",
-    "mock": "node src/utils/rovMock.js"
+    "mock": "python2 src/utils/rov_mock.py"
   }
 }
