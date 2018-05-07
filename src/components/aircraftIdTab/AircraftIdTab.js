@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import './AircraftIdTab.css';
 import ROSLIB from 'roslib';
 
-const A = <div id="aircraft-type" style={{color:"red"}}>A</div>;
-const B = <div id="aircraft-type" style={{color:"yellow"}}>B</div>;
-const C = <div id="aircraft-type" style={{color:"blue"}}>C</div>;
-const D = <div id="aircraft-type" style={{color:"red"}}>D</div>;
-const E = <div id="aircraft-type" style={{color:"yellow"}}>E</div>;
-const F = <div id="aircraft-type" style={{color:"blue"}}>F</div>;
-const Unknown = <div id="aircraft-type" style={{fontSize: 146}}>Unknown</div>;
+const A = <div style={{color:"red"}}>A</div>;
+const B = <div style={{color:"yellow"}}>B</div>;
+const C = <div style={{color:"blue"}}>C</div>;
+const D = <div style={{color:"red"}}>D</div>;
+const E = <div style={{color:"yellow"}}>E</div>;
+const F = <div style={{color:"blue"}}>F</div>;
+const Unknown = <div style={{fontSize: 146}}>Unknown</div>;
 
 class AircraftIdTab extends Component {
     constructor() {
@@ -56,7 +56,9 @@ class AircraftIdTab extends Component {
         return (
             <div id="aircraft-id-tab">
                 <h1>I spot an aircraft of type...</h1>
-                <AircraftType type={type}/>
+                <div id="aircraft-type" >
+                    <AircraftType type={type}/>
+                </div>
             </div>
         )
     }
