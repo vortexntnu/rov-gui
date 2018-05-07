@@ -1,0 +1,32 @@
+.big-red-button {
+    width: 500px;
+    height: 450px;
+    line-height: 500px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 50%;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f74d4d), color-stop(100%, #f86569));
+    box-shadow: 0 30px #e24f4f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.big-red-button:active {
+    box-shadow: 0 0 #e24f4f;
+    -webkit-transform: translate(0px, 30px);
+    transition: 0.1s all ease-out;
+}
+
+.big-red-button div {
+    width: 70%;
+    height: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    font-size: 74px;
+    color: white;
+    font-weight: bold;
+    user-select: none;
+}
