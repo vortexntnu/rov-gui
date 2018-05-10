@@ -5,7 +5,7 @@ This is the GUI for the International MATE ROV-competition 2018.
 The GUI is made with React and Electron, and communicates with the ROV through ROS.
 
 ## Getting started
-To start the GUI, run:
+To start the GUI, first install [npm](https://www.npmjs.com/get-npm), then run:
 * `npm install`
 * `npm run dev`
 
