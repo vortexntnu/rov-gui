@@ -1,0 +1,13 @@
+.form-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-input .form-input-text {
+    font-size: 28px;
+}
+
+.form-input .form-input-label {
+    width: 90px;
+}
