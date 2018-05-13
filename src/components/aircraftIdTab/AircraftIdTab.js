@@ -19,13 +19,13 @@ class AircraftIdTab extends Component {
     componentDidMount() {
         const ros = new ROSLIB.Ros({url: 'ws://localhost:9090'});
 
-        this.typeTopic = new ROSLIB.Topic({
+        this.topic = new ROSLIB.Topic({
             ros: ros,
             name: 'aircraft_id/type',
             messageType: 'std_msgs/String'
         });
 
-        this.typeTopic.subscribe(this.handleType);
+        this.topic.subscribe(this.handleType);
     }
 
     handleType = (msg) => {
@@ -49,6 +49,10 @@ class AircraftIdTab extends Component {
             default:  return Unknown;
         }
     };
+
+    componentWillUnmount() {
+        this.topic.unsubscribe();
+    }
 
     render() {
         const AircraftType = this.AircraftType;
