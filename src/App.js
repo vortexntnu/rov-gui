@@ -7,11 +7,13 @@ import {Tab} from 'semantic-ui-react';
 import GeneralTab from './components/generalTab/GeneralTab';
 import ObsTab from './components/obsTab/ObsTab';
 import AircraftIdTab from './components/aircraftIdTab/AircraftIdTab';
+import LiftbagTab from './components/liftbagTab/LiftbagTab';
 
 const panes = [
     {menuItem: 'General', render: () => <Tab.Pane><GeneralTab/></Tab.Pane>},
     {menuItem: 'OBS', render: () => <Tab.Pane><ObsTab/></Tab.Pane>},
     {menuItem: 'Aircraft identification', render: () => <Tab.Pane><AircraftIdTab/></Tab.Pane>},
+    {menuItem: 'Liftbag-release', render: () => <LiftbagTab/>},
 ];
 
 class App extends Component {

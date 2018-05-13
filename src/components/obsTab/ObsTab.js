@@ -30,19 +30,19 @@ class ObsTab extends Component {
 
         this.anglesTopic = new ROSLIB.Topic({
             ros: this.ros,
-            name: 'obs/angles',
+            name: '/obs/angles',
             messageType: 'geometry_msgs/Point'
         });
 
         this.dataTopic = new ROSLIB.Topic({
             ros: this.ros,
-            name: 'obs/data',
+            name: '/obs/data',
             messageType: 'std_msgs/Float64MultiArray'
         });
 
         this.voltageTopic = new ROSLIB.Topic({
             ros: this.ros,
-            name: 'obs/voltage',
+            name: '/obs/voltage',
             messageType: 'std_msgs/Float64'
         });
 
