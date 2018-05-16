@@ -3,7 +3,7 @@ const ROSLIB = require('roslib');
 let x = 0;
 let y = 0;
 
-const ros = new ROSLIB.Ros({url: 'ws://localhost:9090'});
+const ros = new ROSLIB.Ros({url: process.env.REACT_APP_ROSBRIDGE_URL});
 
 const anglesTopic = new ROSLIB.Topic({
     ros: ros,

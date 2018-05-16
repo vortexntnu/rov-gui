@@ -42,7 +42,7 @@ class App extends Component {
     die = () => this.setState({isConnectedToRov: false});
 
     connectToRosbridge = () => {
-        const ros = new ROSLIB.Ros({url: 'ws://localhost:9090'});
+        const ros = new ROSLIB.Ros({url: process.env.REACT_APP_ROSBRIDGE_URL});
 
         ros.on('connection', () => {
             clearTimeout(this.reconnectionTimer);

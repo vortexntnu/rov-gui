@@ -26,7 +26,7 @@ class ObsTab extends Component {
     }
 
     componentDidMount() {
-        this.ros = new ROSLIB.Ros({url: 'ws://localhost:9090'});
+        this.ros = new ROSLIB.Ros({url: process.env.REACT_APP_ROSBRIDGE_URL});
 
         this.anglesTopic = new ROSLIB.Topic({
             ros: this.ros,
