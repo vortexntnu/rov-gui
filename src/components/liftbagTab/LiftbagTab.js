@@ -5,7 +5,7 @@ import ROSLIB from 'roslib';
 
 class LiftbagTab extends Component {
     componentDidMount() {
-        const ros = new ROSLIB.Ros({url: 'ws://localhost:9090'});
+        const ros = new ROSLIB.Ros({url: process.env.REACT_APP_ROSBRIDGE_URL});
         this.topic = new ROSLIB.Topic({
             ros: ros,
             name: '/liftbag_release',
