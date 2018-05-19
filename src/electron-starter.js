@@ -7,28 +7,6 @@ const BrowserWindow = electron.BrowserWindow;
 const path = require('path');
 const url = require('url');
 
-const {spawn} = require('child_process');
-
-let rosbridge;
-
-// Starts the rosbridge-server automatically
-function startRosbridge() {
-    rosbridge = spawn('roslaunch', ['rosbridge_server', 'rosbridge_websocket.launch']);
-    rosbridge.stdout.on('data', (data) => {
-        console.log(`stdout: ${data}`);
-    });
-
-    rosbridge.stderr.on('data', (data) => {
-        console.log(`stderr: ${data}`);
-    });
-
-    rosbridge.on('close', (code) => {
-        console.log(`child process exited with code ${code}`);
-    });
-}
-
-startRosbridge();
-
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
@@ -65,7 +43,6 @@ app.on('window-all-closed', function () {
     // to stay active until the user quits explicitly with Cmd + Q
     if (process.platform !== 'darwin') {
         app.quit();
-        rosbridge.kill('SIGINT');
     }
 });
 
