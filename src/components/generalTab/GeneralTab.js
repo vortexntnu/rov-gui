@@ -1,6 +1,7 @@
 import React from 'react';
 import {Grid} from 'semantic-ui-react';
 import HealthCheck from './healthcheck/HealthCheck';
+import './GeneralTab.css'
 
 class General extends React.Component {
     render() {

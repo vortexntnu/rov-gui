@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './SearchZoneTab.css';
 import {Grid} from 'semantic-ui-react';
-import FormInput from './FormInput';
+import ValueInput from './ValueInput';
 
 class SearchZoneTab extends Component {
     constructor(props) {
@@ -54,63 +54,61 @@ class SearchZoneTab extends Component {
         const {takeoffHeading} = this.state;
         return (
             <div id="search-zone">
-                <Grid stackable columns={2}>
-                    <Grid.Column>
-                        <h2>Input</h2>
-                        <FormInput
-                            label='Takeoff heading:'
-                            unit='&#176;'
-                            placeholder='e.g. 45, 254, 340, ...'
-                            onChange={this.onTakeoffHeadingChange}
-                        />
-                        <FormInput
-                            label='Airspeed on ascent:'
-                            unit='ms⁻¹'
-                            placeholder='e.g. 60, 76, 101, ...'
-                            onChange={this.onSpeedOnAscentChange}
-                        />
-                        <FormInput
-                            label='Ascent rate:'
-                            unit='ms⁻¹'
-                            placeholder='e.g. 3, 6, 10, ...'
-                            onChange={this.onAscentRateChange}
-                        />
-                        <FormInput
-                            label='Time before engine failure:'
-                            unit='s'
-                            placeholder='e.g. 31, 45, 68, ...'
-                            onChange={this.onEngineFailureTimeChange}
-                        />
-                        <FormInput
-                            label='Airspeed on descent:'
-                            unit='ms⁻¹'
-                            placeholder='e.g. 45, 67, 78, ...'
-                            onChange={this.onSpeedOnDescentChange}
-                        />
-                        <FormInput
-                            label='Descent rate:'
-                            unit='ms⁻¹'
-                            placeholder='e.g. 3, 6, 11, ...'
-                            onChange={this.onDescentRateChange}
-                        />
-                        <FormInput
-                            label='Wind direction:'
-                            unit='&#176;'
-                            placeholder='e.g. 45, 254, 340, ...'
-                            onChange={this.onWindDirectionChange}
-                        />
-                        <FormInput
-                            label='Wind equation:'
-                            unit='???'
-                            placeholder='Yeah I dunno...'
-                            onChange={this.onWindEquationChange}
-                        />
-                    </Grid.Column>
-                    <Grid.Column>
-                        <h2>Output</h2>
-                        <div>{takeoffHeading}</div>
-                    </Grid.Column>
-                </Grid>
+                <div className="left">
+                    <h2>Input</h2>
+                    <ValueInput
+                        label='Takeoff heading:'
+                        unit='&#176;'
+                        placeholder='e.g. 45, 254, 340, ...'
+                        onChange={this.onTakeoffHeadingChange}
+                    />
+                    <ValueInput
+                        label='Airspeed on ascent:'
+                        unit='ms⁻¹'
+                        placeholder='e.g. 60, 76, 101, ...'
+                        onChange={this.onSpeedOnAscentChange}
+                    />
+                    <ValueInput
+                        label='Ascent rate:'
+                        unit='ms⁻¹'
+                        placeholder='e.g. 3, 6, 10, ...'
+                        onChange={this.onAscentRateChange}
+                    />
+                    <ValueInput
+                        label='Time before engine failure:'
+                        unit='s'
+                        placeholder='e.g. 31, 45, 68, ...'
+                        onChange={this.onEngineFailureTimeChange}
+                    />
+                    <ValueInput
+                        label='Airspeed on descent:'
+                        unit='ms⁻¹'
+                        placeholder='e.g. 45, 67, 78, ...'
+                        onChange={this.onSpeedOnDescentChange}
+                    />
+                    <ValueInput
+                        label='Descent rate:'
+                        unit='ms⁻¹'
+                        placeholder='e.g. 3, 6, 11, ...'
+                        onChange={this.onDescentRateChange}
+                    />
+                    <ValueInput
+                        label='Wind direction:'
+                        unit='&#176;'
+                        placeholder='e.g. 45, 254, 340, ...'
+                        onChange={this.onWindDirectionChange}
+                    />
+                    <ValueInput
+                        label='Wind equation:'
+                        unit='???'
+                        placeholder='Yeah I dunno...'
+                        onChange={this.onWindEquationChange}
+                    />
+                </div>
+                <div className="right">
+                    <h2>Output</h2>
+                    <p>{takeoffHeading}</p>
+                </div>
             </div>
         )
     }
