@@ -8,12 +8,14 @@ import GeneralTab from './components/generalTab/GeneralTab';
 import ObsTab from './components/obsTab/ObsTab';
 import AircraftIdTab from './components/aircraftIdTab/AircraftIdTab';
 import SearchZoneTab from './components/search-zone-tab/SearchZoneTab';
+import LiftbagTab from './components/liftbagTab/LiftbagTab';
 
 const panes = [
     {menuItem: 'General', render: () => <Tab.Pane><GeneralTab/></Tab.Pane>},
     {menuItem: 'OBS', render: () => <Tab.Pane><ObsTab/></Tab.Pane>},
     {menuItem: 'Aircraft identification', render: () => <Tab.Pane><AircraftIdTab/></Tab.Pane>},
     {menuItem: 'Search zone', render: () => <Tab.Pane><SearchZoneTab/></Tab.Pane>},
+    {menuItem: 'Liftbag-release', render: () => <LiftbagTab/>},
 ];
 
 class App extends Component {
@@ -30,7 +32,7 @@ class App extends Component {
     }
 
     connectToRosbridge = () => {
-        const ros = new ROSLIB.Ros({url: 'ws://localhost:9090'});
+        const ros = new ROSLIB.Ros({url: process.env.REACT_APP_ROSBRIDGE_URL});
 
         ros.on('connection', () => {
             clearTimeout(this.reconnectionTimer);

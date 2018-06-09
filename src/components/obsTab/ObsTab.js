@@ -26,23 +26,23 @@ class ObsTab extends Component {
     }
 
     componentDidMount() {
-        this.ros = new ROSLIB.Ros({url: 'ws://localhost:9090'});
+        this.ros = new ROSLIB.Ros({url: process.env.REACT_APP_ROSBRIDGE_URL});
 
         this.anglesTopic = new ROSLIB.Topic({
             ros: this.ros,
-            name: 'obs/angles',
+            name: '/obs/angles',
             messageType: 'geometry_msgs/Point'
         });
 
         this.dataTopic = new ROSLIB.Topic({
             ros: this.ros,
-            name: 'obs/data',
+            name: '/obs/data',
             messageType: 'std_msgs/Float64MultiArray'
         });
 
         this.voltageTopic = new ROSLIB.Topic({
             ros: this.ros,
-            name: 'obs/voltage',
+            name: '/obs/voltage',
             messageType: 'std_msgs/Float64'
         });
 

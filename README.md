@@ -5,7 +5,7 @@ This is the GUI for the International MATE ROV-competition 2018.
 The GUI is made with React and Electron, and communicates with the ROV through ROS.
 
 ## Getting started
-To start the GUI, run:
+To start the GUI, first install [npm](https://www.npmjs.com/get-npm), then run:
 * `npm install`
 * `npm run dev`
 
@@ -33,9 +33,9 @@ In this section all the topics used by the GUI will be listed.
 * __/general/healthcheck/\<item>__ _(std_msgs/Empty)_ - For telling if a specific component of the ROV is connected, where \<item> is the name of the component (e.g. IMU, manipulator, etc) in lowercase. If it is not published to with a rate of at least 2 Hz the GUI will mark the component as "Not connected".
 
 ### OBS-tab
-* __obs/voltage__ _(std_msgs/Float64)_ - The voltage of the OBS should be published to this topic.
-* __obs/angles__ _(geometry_msgs/Point)_ - The angle of the OBS should be published to this topic. The z-value of the Point-message is ignored.
-* __obs/data__ _(std_msgs/Float64MultiArray)_ - The data received from the OBS should be published to this topic. The GUI will then display the data both as a table and as a seismograph.
+* __/obs/voltage__ _(std_msgs/Float64)_ - The voltage of the OBS should be published to this topic.
+* __/obs/angles__ _(geometry_msgs/Point)_ - The angle of the OBS should be published to this topic. The z-value of the Point-message is ignored.
+* __/obs/data__ _(std_msgs/Float64MultiArray)_ - The data received from the OBS should be published to this topic. The GUI will then display the data both as a table and as a seismograph.
 
 ### Aircraft identification-tab
 * __/aircraft_id/type__ _(std_msgs/String)_ - Publish a single letter A-F to indicate which kind of aircraft is identified by the ROV.
