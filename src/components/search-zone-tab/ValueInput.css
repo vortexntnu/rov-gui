@@ -1,0 +1,13 @@
+.value-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.value-input .value-input-text {
+    font-size: 28px;
+}
+
+.value-input .value-input-label {
+    width: 90px;
+}

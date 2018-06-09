@@ -7,12 +7,14 @@ import {Tab} from 'semantic-ui-react';
 import GeneralTab from './components/generalTab/GeneralTab';
 import ObsTab from './components/obsTab/ObsTab';
 import AircraftIdTab from './components/aircraftIdTab/AircraftIdTab';
+import SearchZoneTab from './components/search-zone-tab/SearchZoneTab';
 import LiftbagTab from './components/liftbagTab/LiftbagTab';
 
 const panes = [
     {menuItem: 'General', render: () => <Tab.Pane><GeneralTab/></Tab.Pane>},
     {menuItem: 'OBS', render: () => <Tab.Pane><ObsTab/></Tab.Pane>},
     {menuItem: 'Aircraft identification', render: () => <Tab.Pane><AircraftIdTab/></Tab.Pane>},
+    {menuItem: 'Search zone', render: () => <Tab.Pane><SearchZoneTab/></Tab.Pane>},
     {menuItem: 'Liftbag-release', render: () => <LiftbagTab/>},
 ];
 
@@ -20,8 +22,8 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isConnectedToRosbridge: false,
-            isConnectedToRov: true,
+            connectedToRosbridge: false,
+            connectedToRov: true,
         };
     }
 
@@ -29,30 +31,18 @@ class App extends Component {
         this.connectToRosbridge();
     }
 
-    refreshAliveTimeout = () => {
-        clearTimeout(this.aliveTimeout);
-        this.aliveTimeout = setTimeout(this.die, 1000);
-    };
-
-    stillAlive = () => {
-        this.refreshAliveTimeout();
-        this.setState({isConnectedToRov: true});
-    };
-
-    die = () => this.setState({isConnectedToRov: false});
-
     connectToRosbridge = () => {
         const ros = new ROSLIB.Ros({url: process.env.REACT_APP_ROSBRIDGE_URL});
 
         ros.on('connection', () => {
             clearTimeout(this.reconnectionTimer);
             console.log('Connected to websocket server.');
-            this.setState({isConnectedToRosbridge: true});
+            this.setState({connectedToRosbridge: true});
         });
 
         ros.on('close', () => {
             console.log('Connection to websocket server closed.');
-            this.setState({isConnectedToRosbridge: false});
+            this.setState({connectedToRosbridge: false});
             this.reconnectionTimer = setTimeout(() => this.connectToRosbridge(), 500);
         });
 
@@ -65,10 +55,34 @@ class App extends Component {
         isRovAliveTopic.subscribe(this.stillAlive);
     };
 
+    refreshAliveTimeout = () => {
+        clearTimeout(this.aliveTimeout);
+        this.aliveTimeout = setTimeout(this.die, 1000);
+    };
+
+    stillAlive = () => {
+        const connectedToRov = this.state.connectedToRov;
+
+        this.refreshAliveTimeout();
+        if(!connectedToRov) {
+            this.setState({isConnectedToRov: true});
+        }
+    };
+
+    die = () => {
+        const connectedToRov = this.state.connectedToRov;
+
+        if(connectedToRov) {
+            this.setState({connectedToRov: false});
+        }
+    };
+
     gui = () => {
-        if(!this.state.isConnectedToRosbridge) {
+        const {connectedToRosbridge, connectedToRov} = this.state;
+
+        if(!connectedToRosbridge) {
             return <Connecting/>
-        } else if(!this.state.isConnectedToRov) {
+        } else if(!connectedToRov) {
             return <RosError/>
         } else {
             return <Tab id="Tab" panes={panes}/>
