@@ -105,12 +105,14 @@ class SearchZoneTab extends Component {
                         placeholder='e.g. 45, 254, 340, ...'
                         onChange={this.onWindDirectionChange}
                     />
+                    {/*
                     <ValueInput
                         label='Wind equation:'
                         unit='???'
                         placeholder='Yeah I dunno...'
                         onChange={this.onWindEquationChange}
                     />
+                    */}
                 </div>
                 <div className="right">
                     <h2>Output</h2>
