@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './LiftbagTab.css';
-import BigRedButton from '../common/BigRedButton/BigRedButton';
+import BigRedButton from '../common/big-red-button/BigRedButton';
 import ROSLIB from 'roslib';
 
 class LiftbagTab extends Component {

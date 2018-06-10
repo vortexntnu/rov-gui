@@ -4,11 +4,11 @@ import ROSLIB from 'roslib';
 import RosError from './components/RosError';
 import Connecting from './components/Connecting';
 import {Tab} from 'semantic-ui-react';
-import GeneralTab from './components/generalTab/GeneralTab';
-import ObsTab from './components/obsTab/ObsTab';
-import AircraftIdTab from './components/aircraftIdTab/AircraftIdTab';
+import GeneralTab from './components/general-tab/GeneralTab';
+import ObsTab from './components/obs-tab/ObsTab';
+import AircraftIdTab from './components/aircraft-id-tab/AircraftIdTab';
 import SearchZoneTab from './components/search-zone-tab/SearchZoneTab';
-import LiftbagTab from './components/liftbagTab/LiftbagTab';
+import LiftbagTab from './components/liftbag-tab/LiftbagTab';
 
 const panes = [
     {menuItem: 'General', render: () => <Tab.Pane><GeneralTab/></Tab.Pane>},
@@ -22,8 +22,8 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            connectedToRosbridge: false,
-            connectedToRov: true,
+            isConnectedToRosbridge: false,
+            isConnectedToRov: true,
         };
     }
 
@@ -37,12 +37,12 @@ class App extends Component {
         ros.on('connection', () => {
             clearTimeout(this.reconnectionTimer);
             console.log('Connected to websocket server.');
-            this.setState({connectedToRosbridge: true});
+            this.setState({isConnectedToRosbridge: true});
         });
 
         ros.on('close', () => {
             console.log('Connection to websocket server closed.');
-            this.setState({connectedToRosbridge: false});
+            this.setState({isConnectedToRosbridge: false});
             this.reconnectionTimer = setTimeout(() => this.connectToRosbridge(), 500);
         });
 
@@ -61,7 +61,7 @@ class App extends Component {
     };
 
     stillAlive = () => {
-        const connectedToRov = this.state.connectedToRov;
+        const connectedToRov = this.state.isConnectedToRov;
 
         this.refreshAliveTimeout();
         if(!connectedToRov) {
@@ -70,19 +70,19 @@ class App extends Component {
     };
 
     die = () => {
-        const connectedToRov = this.state.connectedToRov;
+        const connectedToRov = this.state.isConnectedToRov;
 
         if(connectedToRov) {
-            this.setState({connectedToRov: false});
+            this.setState({isConnectedToRov: false});
         }
     };
 
     gui = () => {
-        const {connectedToRosbridge, connectedToRov} = this.state;
+        const {isConnectedToRosbridge, isConnectedToRov} = this.state;
 
-        if(!connectedToRosbridge) {
+        if(!isConnectedToRosbridge) {
             return <Connecting/>
-        } else if(!connectedToRov) {
+        } else if(!isConnectedToRov) {
             return <RosError/>
         } else {
             return <Tab id="Tab" panes={panes}/>
