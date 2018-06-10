@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './SearchZoneTab.css';
 import SearchZoneOuput from './SearchZoneOutput';
 import ValueInput from './ValueInput';
+import {Tab} from 'semantic-ui-react';
 
 class SearchZoneTab extends Component {
     constructor(props) {
@@ -51,9 +52,8 @@ class SearchZoneTab extends Component {
     };
 
     render() {
-        const {takeoffHeading} = this.state;
         return (
-            <div id="search-zone">
+            <Tab.Pane id="search-zone">
                 <div className="left">
                     <h2>Input</h2>
                     <ValueInput
@@ -118,7 +118,7 @@ class SearchZoneTab extends Component {
                     <h2>Output</h2>
                     <SearchZoneOuput values={this.state}/>
                 </div>
-            </div>
+            </Tab.Pane>
         )
     }
 }

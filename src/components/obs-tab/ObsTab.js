@@ -4,6 +4,7 @@ import {Grid} from 'semantic-ui-react';
 import BubbleLevel from './BubbleLevel';
 import DataGrid from './DataGrid';
 import ROSLIB from 'roslib';
+import {Tab} from 'semantic-ui-react';
 
 class ObsTab extends Component {
     constructor() {
@@ -95,27 +96,29 @@ class ObsTab extends Component {
     render() {
         const {angles, data, voltage} = this.state;
         return (
-            <Grid id="obs-tab" celled>
-                <Grid.Row columns={2}>
-                    <Grid.Column width={6}>
-                        <h1>OBS-level</h1>
-                        <BubbleLevel angles={angles}/>
-                        <div className="data-label">
-                            <div>xAngle = </div>
-                            <div>{ObsTab.safeGetAngle(angles.x)}</div>
-                        </div>
-                        <div className="data-label">
-                            <div>yAngle = </div>
-                            <div>{ObsTab.safeGetAngle(angles.y)}</div>
-                        </div>
-                        <div className="data-label">
-                            <div>Voltage = </div>
-                            <div>{ObsTab.safeGetVoltage(voltage, 3)}</div>
-                        </div>
-                    </Grid.Column>
-                    <DataGrid width={10} data={data}/>
-                </Grid.Row>
-            </Grid>
+            <Tab.Pane id="obs-tab">
+                <Grid celled>
+                    <Grid.Row columns={2}>
+                        <Grid.Column width={6}>
+                            <h1>OBS-level</h1>
+                            <BubbleLevel angles={angles}/>
+                            <div className="data-label">
+                                <div>xAngle = </div>
+                                <div>{ObsTab.safeGetAngle(angles.x)}</div>
+                            </div>
+                            <div className="data-label">
+                                <div>yAngle = </div>
+                                <div>{ObsTab.safeGetAngle(angles.y)}</div>
+                            </div>
+                            <div className="data-label">
+                                <div>Voltage = </div>
+                                <div>{ObsTab.safeGetVoltage(voltage, 3)}</div>
+                            </div>
+                        </Grid.Column>
+                        <DataGrid width={10} data={data}/>
+                    </Grid.Row>
+                </Grid>
+            </Tab.Pane>
         )
     }
 }

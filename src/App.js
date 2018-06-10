@@ -11,10 +11,10 @@ import SearchZoneTab from './components/search-zone-tab/SearchZoneTab';
 import LiftbagTab from './components/liftbag-tab/LiftbagTab';
 
 const panes = [
-    {menuItem: 'General', render: () => <Tab.Pane><GeneralTab/></Tab.Pane>},
-    {menuItem: 'OBS', render: () => <Tab.Pane><ObsTab/></Tab.Pane>},
-    {menuItem: 'Aircraft identification', render: () => <Tab.Pane><AircraftIdTab/></Tab.Pane>},
-    {menuItem: 'Search zone', render: () => <Tab.Pane><SearchZoneTab/></Tab.Pane>},
+    {menuItem: 'General', render: () => <GeneralTab/>},
+    {menuItem: 'OBS', render: () => <ObsTab/>},
+    {menuItem: 'Aircraft identification', render: () => <AircraftIdTab/>},
+    {menuItem: 'Search zone', render: () => <SearchZoneTab/>},
     {menuItem: 'Liftbag-release', render: () => <LiftbagTab/>},
 ];
 

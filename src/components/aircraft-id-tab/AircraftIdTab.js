@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './AircraftIdTab.css';
 import ROSLIB from 'roslib';
+import {Tab} from 'semantic-ui-react';
 
 const A = <div style={{color:"red"}}>A</div>;
 const B = <div style={{color:"yellow"}}>B</div>;
@@ -58,12 +59,12 @@ class AircraftIdTab extends Component {
         const AircraftType = this.AircraftType;
         const type = this.state.type;
         return (
-            <div id="aircraft-id-tab">
+            <Tab.Pane id="aircraft-id-tab">
                 <h1>I spot an aircraft of type...</h1>
                 <div id="aircraft-type" >
                     <AircraftType type={type}/>
                 </div>
-            </div>
+            </Tab.Pane>
         )
     }
 }
