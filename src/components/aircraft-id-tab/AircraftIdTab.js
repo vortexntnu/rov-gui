@@ -12,8 +12,8 @@ const F = <div style={{color:"blue"}}>F</div>;
 const Unknown = <div style={{fontSize: 146}}>Unknown</div>;
 
 class AircraftIdTab extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {type: null}
     }
 
