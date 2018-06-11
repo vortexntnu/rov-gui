@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './SearchZoneTab.css';
 import SearchZoneOuput from './SearchZoneOutput';
-import ValueInput from './ValueInput';
+import ValueInput from '../common/value-input/ValueInput';
 import {Tab} from 'semantic-ui-react';
 
 class SearchZoneTab extends Component {
