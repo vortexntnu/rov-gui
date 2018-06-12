@@ -9,6 +9,7 @@ import ObsTab from './components/obs-tab/ObsTab';
 import AircraftIdTab from './components/aircraft-id-tab/AircraftIdTab';
 import SearchZoneTab from './components/search-zone-tab/SearchZoneTab';
 import LiftbagTab from './components/liftbag-tab/LiftbagTab';
+import PowerCalculatorTab from './components/power-calculator/PowerCalculatorTab';
 
 const panes = [
     {menuItem: 'General', render: () => <GeneralTab/>},
@@ -16,6 +17,7 @@ const panes = [
     {menuItem: 'Aircraft identification', render: () => <AircraftIdTab/>},
     {menuItem: 'Search zone', render: () => <SearchZoneTab/>},
     {menuItem: 'Liftbag-release', render: () => <LiftbagTab/>},
+    {menuItem: 'Power calculator', render: () => <PowerCalculatorTab/>},
 ];
 
 class App extends Component {
