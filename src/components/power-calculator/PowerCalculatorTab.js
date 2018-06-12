@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Tab} from 'semantic-ui-react';
 import ValueInput from '../common/value-input/ValueInput';
 
 /*
@@ -22,7 +23,7 @@ function p(n, vk, d, cp) {
     return n * 1/2*(p * a * Math.pow(v,3) * cp);
 }
 
-class PowerCalculator extends Component {
+class PowerCalculatorTab extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -48,6 +49,12 @@ class PowerCalculator extends Component {
     onEfficiencyChange = (event) => {
         this.setState({numberInput: event.target.value});
     };
+
+    render() {
+        return (
+            <Tab.Pane>PowerCalculatorTab works!</Tab.Pane>
+        );
+    }
 }
 
-export default PowerCalculator;
+export default PowerCalculatorTab;
