@@ -29,11 +29,23 @@ class PowerCalculator extends Component {
             numberInput: "",
             velocityInput: "",
             diameterInput: "",
-            efficiency: "",
+            efficiencyInput: "",
         }
     }
 
     onNumberChange = (event) => {
+        this.setState({numberInput: event.target.value});
+    };
+
+    onVelocityChange = (event) => {
+        this.setState({velocityInput: event.target.value});
+    };
+
+    onDiameterChange = (event) => {
+        this.setState({diameterInput: event.target.value});
+    };
+
+    onEfficiencyChange = (event) => {
         this.setState({numberInput: event.target.value});
     };
 }
