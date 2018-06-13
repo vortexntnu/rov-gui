@@ -3,6 +3,7 @@ import {Grid} from 'semantic-ui-react';
 import HealthCheck from './healthcheck/HealthCheck';
 import './GeneralTab.css';
 import {Tab} from 'semantic-ui-react';
+import ArmToggler from './arm-toggler/ArmToggler';
 
 class General extends React.Component {
     render() {
@@ -11,7 +12,7 @@ class General extends React.Component {
                 <Grid celled>
                     <Grid.Row columns={2}>
                         <Grid.Column>
-                            <p>HALLA</p>
+                            <ArmToggler/>
                         </Grid.Column>
                         <Grid.Column>
                             <p>HALLA</p>
