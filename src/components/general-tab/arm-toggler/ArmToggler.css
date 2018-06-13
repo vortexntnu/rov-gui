@@ -1,0 +1,10 @@
+#arm-toggler .component {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.arm-button {
+    display: block;
+    width: 100px;
+}
