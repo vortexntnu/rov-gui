@@ -4,6 +4,7 @@ import HealthCheck from './healthcheck/HealthCheck';
 import './GeneralTab.css';
 import {Tab} from 'semantic-ui-react';
 import ArmToggler from './arm-toggler/ArmToggler';
+import CameraTilt from './camera-tilt/CameraTilt';
 
 class General extends React.Component {
     render() {
@@ -15,7 +16,7 @@ class General extends React.Component {
                             <ArmToggler/>
                         </Grid.Column>
                         <Grid.Column>
-                            <p>HALLA</p>
+                            <CameraTilt/>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row columns={2}>
