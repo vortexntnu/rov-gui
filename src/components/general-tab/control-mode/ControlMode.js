@@ -6,7 +6,13 @@ import {Form, Radio} from 'semantic-ui-react';
 class ControlMode extends Component {
     constructor(props) {
         super(props);
-        this.state = {mode: 'open-loop'};
+
+        if(window.controlMode !== undefined) {
+            this.state = {mode: window.controlMode};
+        } else {
+            this.state = {mode: 'open-loop'};
+        }
+
         const ros = new ROSLIB.Ros({url: process.env.REACT_APP_ROSBRIDGE_URL});
         this.topic = new ROSLIB.Topic({
             ros: ros,
@@ -17,6 +23,7 @@ class ControlMode extends Component {
 
     handleChange = (event, {value}) => {
         this.setState({mode: value});
+        window.controlMode = value;
     };
 
     render() {
