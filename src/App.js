@@ -9,6 +9,7 @@ import ObsTab from './components/obs-tab/ObsTab';
 import AircraftIdTab from './components/aircraft-id-tab/AircraftIdTab';
 import SearchZoneTab from './components/search-zone-tab/SearchZoneTab';
 import LiftbagTab from './components/liftbag-tab/LiftbagTab';
+import RovMonitorTab from './components/rov-monitor/RovMonitorTab';
 
 const panes = [
     {menuItem: 'General', render: () => <GeneralTab/>},
@@ -16,6 +17,7 @@ const panes = [
     {menuItem: 'Aircraft identification', render: () => <AircraftIdTab/>},
     {menuItem: 'Search zone', render: () => <SearchZoneTab/>},
     {menuItem: 'Liftbag-release', render: () => <LiftbagTab/>},
+    {menuItem: 'ROV-monitor', render: () => <RovMonitorTab/>},
 ];
 
 class App extends Component {
