@@ -1,0 +1,21 @@
+.ui.card, .filler-card {
+    margin: 20px 20px !important;
+    width: 300px;
+}
+
+.ui.card .row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.leak {
+    color: red;
+}
+
+.no-leak {
+    color: green;
+}
+
+.leak-unknown {
+    color: yellow;
+}
