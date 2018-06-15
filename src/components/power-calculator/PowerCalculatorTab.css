@@ -1,0 +1,29 @@
+#search-zone {
+    width: 100%;
+    display: flex;
+}
+
+#power-calculator > .left {
+    width: 50%;
+    margin-right: 20px;
+}
+
+@media (max-width: 1342px) {
+    #power-calculator {
+        flex-direction: column;
+    }
+
+    #power-calculator > .left {
+        width: 100%;
+        margin: 0 0 40px 0;
+    }
+
+    #power-calculator > .right {
+        width: 100%;
+    }
+}
+
+#power-calculator h2 {
+    font-size: 46px;
+    margin-bottom: 30px;
+}
