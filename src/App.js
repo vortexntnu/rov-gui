@@ -10,6 +10,8 @@ import AircraftIdTab from './components/aircraft-id-tab/AircraftIdTab';
 import SearchZoneTab from './components/search-zone-tab/SearchZoneTab';
 import LiftbagTab from './components/liftbag-tab/LiftbagTab';
 import PowerCalculatorTab from './components/power-calculator/PowerCalculatorTab';
+import {connect} from 'react-redux';
+import {setRos} from './actions/rosActions';
 
 const panes = [
     {menuItem: 'General', render: () => <GeneralTab/>},
@@ -35,6 +37,7 @@ class App extends Component {
 
     connectToRosbridge = () => {
         const ros = new ROSLIB.Ros({url: process.env.REACT_APP_ROSBRIDGE_URL});
+        this.props.onSetRos(ros);
 
         ros.on('connection', () => {
             clearTimeout(this.reconnectionTimer);
@@ -101,4 +104,15 @@ class App extends Component {
     }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+    ros: state.ros,
+});
+
+const mapActionsToProps = {
+    onSetRos: setRos,
+};
+
+export default connect(
+    mapStateToProps,
+    mapActionsToProps
+)(App);

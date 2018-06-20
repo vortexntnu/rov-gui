@@ -21,8 +21,11 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-measure": "^2.0.2",
+    "react-redux": "^5.0.7",
     "react-scripts": "1.1.1",
     "react-vis": "^1.9.2",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0",
     "roslib": "^0.20.0",
     "semantic-ui-css": "^2.3.0",
     "semantic-ui-react": "^0.78.3"
