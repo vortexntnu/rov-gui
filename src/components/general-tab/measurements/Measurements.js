@@ -10,7 +10,7 @@ class Measurements extends Component {
         if(window.pressure !== undefined) {
             this.state = {pressure: window.pressure};
         } else {
-            this.state = {pressure: ''};
+            this.state = {pressure: null};
         }
 
         const ros = new ROSLIB.Ros({url: process.env.REACT_APP_ROSBRIDGE_URL});

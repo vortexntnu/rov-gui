@@ -4,7 +4,11 @@ import './Depth.css';
 const density = 1025;
 
 function calculateDepth(pressure, offset) {
-    return ((pressure - offset) / (density * 9.81)).toFixed(2);
+    console.log(pressure);
+    if(pressure === null) {
+        return 'Unknown'
+    }
+    return ((pressure - offset) / (density * 9.81)).toFixed(2) + ' m';
 }
 
 class Depth extends Component {
@@ -19,7 +23,7 @@ class Depth extends Component {
         const depth = calculateDepth(pressure, offset);
 
         return (
-            <div className='depth'>Depth: {depth} m</div>
+            <div className='depth'>Depth: {depth}</div>
         );
     }
 }
