@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './Depth.css';
+import {Button} from 'semantic-ui-react';
 
 const density = 1025;
 
@@ -17,13 +18,24 @@ class Depth extends Component {
         this.state = {offset: 0};
     }
 
+    onSetOffset = () => {
+        const {pressure} = this.props;
+        if(pressure !== null) {
+            this.setState({offset: pressure});
+        }
+    };
+
     render() {
         const {pressure} = this.props;
         const {offset} = this.state;
         const depth = calculateDepth(pressure, offset);
 
         return (
-            <div className='depth'>Depth: {depth}</div>
+            <div className='depth'>
+                <div>Depth:</div>
+                <div>{depth}</div>
+                <Button onClick={this.onSetOffset}>Reset</Button>
+            </div>
         );
     }
 }
