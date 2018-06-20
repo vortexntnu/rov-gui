@@ -3,17 +3,17 @@ import './Measurements.css';
 import ROSLIB from 'roslib';
 import Depth from './Depth';
 
-function calculateDepth(pressure) {
-
-}
-
 class Measurements extends Component {
     constructor(props) {
         super(props);
+
+        if(window.pressure !== undefined) {
+            this.state = {pressure: window.pressure};
+        } else {
+            this.state = {pressure: ''};
+        }
+
         const ros = new ROSLIB.Ros({url: process.env.REACT_APP_ROSBRIDGE_URL});
-        this.state = {
-            pressure: null,
-        };
         this.topic = new ROSLIB.Topic({
             ros: ros,
             name: '/sensors/pressure',
@@ -23,7 +23,9 @@ class Measurements extends Component {
     }
 
     handlePressureMsg = (msg) => {
-        this.setState({pressure: msg.data})
+        this.setState({pressure: msg.fluid_pressure});
+        window.pressure = msg.fluid_pressure;
+        console.log(msg);
     };
 
     render() {

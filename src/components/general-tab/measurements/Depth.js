@@ -1,35 +1,25 @@
 import React, {Component} from 'react';
 import './Depth.css';
-import ROSLIB from 'roslib';
 
-function calculateDepth(pressure) {
+const density = 1025;
 
+function calculateDepth(pressure, offset) {
+    return ((pressure - offset) / (density * 9.81)).toFixed(2);
 }
 
 class Depth extends Component {
     constructor(props) {
         super(props);
-        const ros = new ROSLIB.Ros({url: process.env.REACT_APP_ROSBRIDGE_URL});
-        this.state = {
-            depth: null,
-        };
-        this.topic = new ROSLIB.Topic({
-            ros: ros,
-            name: '/sensors/pressure',
-            messageType: 'sensor_msgs/FluidPressure',
-        });
-        this.topic.subscribe(this.handlePressureMsg)
+        this.state = {offset: 0};
     }
 
-    handlePressureMsg = (msg) => {
-
-    };
-
     render() {
+        const {pressure} = this.props;
+        const {offset} = this.state;
+        const depth = calculateDepth(pressure, offset);
+
         return (
-            <div>
-                <div>hei</div>
-            </div>
+            <div className='depth'>Depth: {depth} m</div>
         );
     }
 }
