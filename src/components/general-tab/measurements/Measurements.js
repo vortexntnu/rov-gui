@@ -32,9 +32,7 @@ class Measurements extends Component {
         const {pressure} = this.state;
 
         return (
-            <div id="healthCheck">
-                <Depth pressure={pressure}/>
-            </div>
+            <Depth pressure={pressure}/>
         );
     }
 }
