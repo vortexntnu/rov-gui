@@ -37,10 +37,8 @@ class CameraTilt extends Component {
         return (
             <div id='camera-tilt'>
                 <h3>Camera tilt</h3>
-                <div className='component'>
-                    <Input onChange={this.changeTiltInput} placeholder='from -1 to 1'/>
-                    <Button onClick={this.setTilt}>Set tilt</Button>
-                </div>
+                <Input onChange={this.changeTiltInput} placeholder='from -1 to 1'/>
+                <Button onClick={this.setTilt}>Set tilt</Button>
             </div>
         )
     }

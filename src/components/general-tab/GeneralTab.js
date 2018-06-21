@@ -1,11 +1,11 @@
 import React from 'react';
 import {Grid} from 'semantic-ui-react';
-import HealthCheck from './healthcheck/HealthCheck';
 import './GeneralTab.css';
 import {Tab} from 'semantic-ui-react';
 import ArmToggler from './arm-toggler/ArmToggler';
 import CameraTilt from './camera-tilt/CameraTilt';
 import ControlMode from './control-mode/ControlMode';
+import ThrusterScaling from './thruster-scaling/ThrusterScaling';
 
 class General extends React.Component {
     render() {
@@ -25,7 +25,7 @@ class General extends React.Component {
                             <ControlMode/>
                         </Grid.Column>
                         <Grid.Column>
-                            <HealthCheck/>
+                            <ThrusterScaling/>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

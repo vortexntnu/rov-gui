@@ -28,7 +28,7 @@ class ControlMode extends Component {
 
     render() {
         return (
-            <Form>
+            <Form id='control-mode'>
                 <h3>Control-mode</h3>
                 <Form.Field>
                     <Radio
