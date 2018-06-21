@@ -1,0 +1,8 @@
+#thruster-scaling .scaling-input {
+    display: flex;
+    justify-content: space-between;
+}
+
+#thruster-scaling .scaling-label {
+    font-size: 22px;
+}
