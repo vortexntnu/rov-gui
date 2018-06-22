@@ -1,0 +1,5 @@
+#general-tab .depth {
+    font-size: 22px;
+    display: flex;
+    justify-content: space-between;
+}

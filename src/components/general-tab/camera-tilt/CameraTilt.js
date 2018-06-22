@@ -10,7 +10,7 @@ class CameraTilt extends Component {
         const ros = new ROSLIB.Ros({url: process.env.REACT_APP_ROSBRIDGE_URL});
         this.topic = new ROSLIB.Topic({
             ros: ros,
-            name: '/camera_direction',
+            name: '/camera_position',
             messageType: 'std_msgs/Float64',
         });
     }

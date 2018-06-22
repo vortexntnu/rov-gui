@@ -6,6 +6,7 @@ import ArmToggler from './arm-toggler/ArmToggler';
 import CameraTilt from './camera-tilt/CameraTilt';
 import ControlMode from './control-mode/ControlMode';
 import ThrusterScaling from './thruster-scaling/ThrusterScaling';
+import Measurements from './measurements/Measurements';
 
 class General extends React.Component {
     render() {
@@ -23,6 +24,7 @@ class General extends React.Component {
                     <Grid.Row columns={2}>
                         <Grid.Column>
                             <ControlMode/>
+                            <Measurements/>
                         </Grid.Column>
                         <Grid.Column>
                             <ThrusterScaling/>
