@@ -21,16 +21,16 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-measure": "^2.0.2",
-    "react-scripts": "1.1.1",
+    "react-scripts": "^2.1.1",
     "react-vis": "^1.9.2",
     "roslib": "^0.20.0",
     "semantic-ui-css": "^2.3.0",
     "semantic-ui-react": "^0.78.3"
   },
   "devDependencies": {
-    "electron": "^1.8.2",
-    "electron-packager": "^11.0.1",
-    "foreman": "^2.0.0"
+    "electron": "^3.0.9",
+    "electron-packager": "^12.2.0",
+    "foreman": "^3.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -41,5 +41,11 @@
     "electron": "electron .",
     "dev": "nf start -p 3000",
     "mock": "python2 src/utils/rov_mock.py"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
