@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button} from 'semantic-ui-react';
+import {Checkbox} from 'semantic-ui-react';
 import ROSLIB from 'roslib';
 import './ArmToggler.css';
 
@@ -26,11 +26,6 @@ class ArmToggler extends Component {
         }
     };
 
-    getNextAction = () => {
-        const {isArmed} = this.state;
-        return isArmed ? 'Disarm' : 'Arm'
-    };
-
     render() {
         const {isArmed} = this.state;
         return (
@@ -38,9 +33,7 @@ class ArmToggler extends Component {
                 <h3>Arm components</h3>
                 <div className='component'>
                     <h4>Thrusters</h4>
-                    <Button className='arm-button' toggle active={isArmed} onClick={this.handleClick}>
-                        <div >{this.getNextAction()}</div>
-                    </Button>
+                    <Checkbox toggle active={isArmed} onClick={this.handleClick}/>
                 </div>
             </div>
         )
