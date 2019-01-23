@@ -45,13 +45,13 @@ class App extends Component {
         ros.on('close', () => {
             console.log('Connection to websocket server closed.');
             this.setState({isConnectedToRosbridge: false});
-            this.reconnectionTimer = setTimeout(() => this.connectToRosbridge(), 500);
+            this.reconnectionTimer = setTimeout(() => this.connectToRosbridge(), 1400);
         });
 
         const isRovAliveTopic = new ROSLIB.Topic({
             ros: ros,
-            name: '/is_alive',
-            messageType: 'std_msgs/Empty'
+            name: '/mcu_heartbeat',
+            messageType: 'std_msgs/String'
         });
         this.refreshAliveTimeout();
         isRovAliveTopic.subscribe(this.stillAlive);
@@ -59,7 +59,7 @@ class App extends Component {
 
     refreshAliveTimeout = () => {
         clearTimeout(this.aliveTimeout);
-        this.aliveTimeout = setTimeout(this.die, 1000);
+        this.aliveTimeout = setTimeout(this.die, 1400);
     };
 
     stillAlive = () => {
@@ -72,9 +72,9 @@ class App extends Component {
     };
 
     die = () => {
-        const connectedToRov = this.state.isConnectedToRov;
+        const isConnectedToRov = this.state.isConnectedToRov;
 
-        if(connectedToRov) {
+        if(isConnectedToRov) {
             this.setState({isConnectedToRov: false});
         }
     };
