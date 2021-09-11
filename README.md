@@ -1,6 +1,8 @@
 # ROV GUI
 [![Build Status](https://travis-ci.org/vortexntnu/rov-gui.svg?branch=master)](https://travis-ci.org/vortexntnu/rov-gui)
 
+# This repository is archived due to it not being in use after moving over to creating AUVs :^) 
+
 This is the GUI for the International MATE ROV-competition 2018.
 The GUI is made with React and Electron, and communicates with the ROV through ROS.
 
